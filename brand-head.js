@@ -54,8 +54,22 @@
             if (/Nesma[\s\u00a0]*(?:&amp;|&)[\s\u00a0]*Partners[\s\u00a0]*-[\s\u00a0]*Together/i.test(content)) {
                 meta.setAttribute('content', brand + ' - ' + tagline);
             } else {
-                meta.setAttribute('content', cleanBrand(content));
+                content = cleanBrand(content);
+                if (content === brand + ' - ' + brand) {
+                    content = brand + ' - ' + tagline;
+                }
+                meta.setAttribute('content', content);
             }
+        });
+
+        document.querySelectorAll('meta[name="description"], meta[property="og:description"], meta[name="twitter:description"]').forEach(function (meta) {
+            meta.setAttribute('content', isAr
+                ? 'الرويس ملتزمة ببناء مستقبل أفضل من خلال التقدم المبتكر والمستدام للمجتمعات التي نخدمها.'
+                : 'Alruwais is committed to shaping a better future through innovative, sustainable progress for the communities we serve.');
+        });
+
+        document.querySelectorAll('meta[property="og:image"], meta[name="twitter:image"]').forEach(function (meta) {
+            meta.setAttribute('content', scriptBase() + 'images/og-alruwais.png');
         });
 
         document.querySelectorAll('script[type="application/ld+json"]').forEach(function (node) {

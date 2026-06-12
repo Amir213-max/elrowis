@@ -193,14 +193,22 @@
         var isAr = document.documentElement.lang === 'ar' || document.documentElement.dir === 'rtl';
         var brand = isAr ? 'الرويس' : 'Alruwais';
         var tagline = isAr ? 'معاً نبني التميز' : 'Together, We Build Excellence';
+        var desc = isAr
+            ? 'الرويس ملتزمة ببناء مستقبل أفضل من خلال التقدم المبتكر والمستدام للمجتمعات التي نخدمها.'
+            : 'Alruwais is committed to shaping a better future through innovative, sustainable progress for the communities we serve.';
         var base = window.__ASSET_BASE__ || './';
+        var ogImage = base + 'images/og-alruwais.png';
 
         function cleanBrand(text) {
             if (!text) return text;
-            return text
+            text = text
                 .replace(/نسما[\s\u00a0]*(?:&|و)[\s\u00a0]*شرك[\s\u00a0]*(?:اهم|ائها|ائه)/gi, brand)
                 .replace(/Nesma[\s\u00a0]*(?:&amp;|&)[\s\u00a0]*Partners/gi, brand)
                 .replace(/Nesma[\s\u00a0]+and[\s\u00a0]+Partners/gi, brand);
+            if (text === brand + ' - ' + brand) {
+                return brand + ' - ' + tagline;
+            }
+            return text;
         }
 
         if (document.title) {
@@ -210,11 +218,15 @@
         document.querySelectorAll('meta[property="og:title"], meta[name="twitter:title"]').forEach(function (meta) {
             var content = meta.getAttribute('content');
             if (!content) return;
-            if (/Nesma[\s\u00a0]*(?:&amp;|&)[\s\u00a0]*Partners[\s\u00a0]*-[\s\u00a0]*Together/i.test(content)) {
-                meta.setAttribute('content', brand + ' - ' + tagline);
-            } else {
-                meta.setAttribute('content', cleanBrand(content));
-            }
+            meta.setAttribute('content', cleanBrand(content));
+        });
+
+        document.querySelectorAll('meta[name="description"], meta[property="og:description"], meta[name="twitter:description"]').forEach(function (meta) {
+            meta.setAttribute('content', desc);
+        });
+
+        document.querySelectorAll('meta[property="og:image"], meta[name="twitter:image"]').forEach(function (meta) {
+            meta.setAttribute('content', ogImage);
         });
 
         document.querySelectorAll('script[type="application/ld+json"]').forEach(function (node) {
@@ -222,11 +234,12 @@
                 var data = JSON.parse(node.textContent);
                 if (data.name) data.name = cleanBrand(data.name);
                 if (data.headline) data.headline = cleanBrand(data.headline);
+                data.description = desc;
                 node.textContent = JSON.stringify(data);
             } catch (e) { /* ignore */ }
         });
 
-        var iconUrl = base + 'images/favicon-alruwais-32x32.png?v=1';
+        var iconUrl = base + 'images/favicon-alruwais-32x32.png?v=3';
         document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]').forEach(function (link) {
             link.setAttribute('href', iconUrl);
             link.setAttribute('type', 'image/png');
