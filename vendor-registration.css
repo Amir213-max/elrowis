@@ -1,0 +1,478 @@
+/* Vendor Expression of Interest Form – brand colors (#003d53 / #d5d7d7) */
+
+.page-vendor-registration {
+    background: #eef0f1;
+}
+
+.page-vendor-registration main {
+    padding-top: 5.5em;
+}
+
+.eoi-page {
+    max-width: 72em;
+    margin: 0 auto;
+    padding: 0 1.25em 4em;
+}
+
+/* Banner */
+.eoi-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5em;
+    background: #003d53;
+    color: #fff;
+    border-radius: 0.75em;
+    padding: 1.1em 1.75em;
+    margin-bottom: 1.25em;
+}
+
+.eoi-banner__tagline {
+    font-size: 0.95em;
+    line-height: 1.35;
+    white-space: nowrap;
+}
+
+.eoi-banner__tagline em {
+    color: #d5d7d7;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.eoi-banner__title {
+    flex: 1;
+    text-align: center;
+    font-size: 1.35em;
+    font-weight: 700;
+    margin: 0;
+}
+
+.eoi-banner__logo {
+    height: 3.2em;
+    width: auto;
+    max-width: 11em;
+    object-fit: contain;
+}
+
+/* Toolbar */
+.eoi-toolbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1em;
+    margin-bottom: 1.25em;
+}
+
+.eoi-lang {
+    display: flex;
+    gap: 0.75em;
+    font-size: 0.82em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.eoi-lang a {
+    color: #003d53;
+    text-decoration: none;
+}
+
+.eoi-lang a.is-active {
+    text-decoration: underline;
+}
+
+.eoi-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.55em;
+}
+
+.eoi-login-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 10em;
+    padding: 0.65em 1.4em;
+    background: #003d53;
+    color: #fff;
+    border: none;
+    border-radius: 0.35em;
+    font-weight: 700;
+    font-size: 0.9em;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.eoi-guide-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    color: #003d53;
+    font-size: 0.82em;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.eoi-guide-link svg {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+}
+
+/* Form card */
+.eoi-card {
+    background: #fff;
+    border-radius: 0.75em;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    padding: 2em 2.25em 2.5em;
+}
+
+.eoi-section {
+    margin-bottom: 2.25em;
+}
+
+.eoi-section:last-of-type {
+    margin-bottom: 0;
+}
+
+.eoi-section__head {
+    display: flex;
+    align-items: center;
+    gap: 0.65em;
+    margin-bottom: 1.35em;
+    padding-bottom: 0.65em;
+    border-bottom: 1px solid #e4e6e7;
+}
+
+.eoi-section__icon {
+    width: 1.75em;
+    height: 1.75em;
+    color: #003d53;
+    flex-shrink: 0;
+}
+
+.eoi-section__title {
+    margin: 0;
+    font-size: 1.05em;
+    font-weight: 700;
+    color: #1b1c1c;
+}
+
+.eoi-grid {
+    display: grid;
+    gap: 1.15em 1.25em;
+}
+
+.eoi-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.eoi-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.eoi-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35em;
+}
+
+.eoi-field--full {
+    grid-column: 1 / -1;
+}
+
+.eoi-label {
+    font-size: 0.82em;
+    font-weight: 700;
+    color: #333;
+}
+
+.eoi-label .req {
+    color: #c0392b;
+}
+
+.eoi-hint {
+    font-size: 0.75em;
+    color: #777;
+    margin-top: -0.15em;
+}
+
+.eoi-input,
+.eoi-select,
+.eoi-textarea {
+    width: 100%;
+    border: 1px solid #c8cccf;
+    border-radius: 0.3em;
+    padding: 0.55em 0.75em;
+    font: inherit;
+    font-size: 0.88em;
+    color: #1b1c1c;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.eoi-input:focus,
+.eoi-select:focus,
+.eoi-textarea:focus {
+    outline: none;
+    border-color: #003d53;
+    box-shadow: 0 0 0 2px rgba(0, 61, 83, 0.12);
+}
+
+.eoi-input--counter-wrap {
+    position: relative;
+}
+
+.eoi-counter {
+    position: absolute;
+    bottom: 0.45em;
+    right: 0.65em;
+    font-size: 0.72em;
+    color: #888;
+    pointer-events: none;
+}
+
+html[dir="rtl"] .eoi-counter {
+    right: auto;
+    left: 0.65em;
+}
+
+.eoi-readonly {
+    padding: 0.55em 0;
+    font-size: 0.88em;
+    color: #555;
+}
+
+.eoi-readonly strong {
+    color: #1b1c1c;
+}
+
+/* File upload */
+.eoi-upload-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25em;
+}
+
+.eoi-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45em;
+}
+
+.eoi-upload__zone {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid #c8cccf;
+    border-radius: 0.3em;
+    overflow: hidden;
+    min-height: 2.75em;
+}
+
+.eoi-upload__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.1em;
+    background: #d5d7d7;
+    color: #003d53;
+    font-size: 0.78em;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.eoi-upload__drop {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 0.55em 0.85em;
+    font-size: 0.82em;
+    color: #888;
+    cursor: pointer;
+}
+
+.eoi-upload__drop.has-file {
+    color: #1b1c1c;
+}
+
+.eoi-upload input[type="file"] {
+    display: none;
+}
+
+.eoi-upload__note {
+    font-size: 0.72em;
+    color: #888;
+}
+
+/* Services multi-select */
+.eoi-services-wrap {
+    position: relative;
+}
+
+.eoi-services-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border: 1px solid #c8cccf;
+    border-radius: 0.3em;
+    padding: 0.55em 0.75em;
+    font-size: 0.88em;
+    background: #fff;
+    cursor: pointer;
+    text-align: inherit;
+    color: #888;
+}
+
+.eoi-services-trigger.has-value {
+    color: #1b1c1c;
+}
+
+.eoi-services-panel {
+    display: none;
+    position: absolute;
+    z-index: 50;
+    top: calc(100% + 0.25em);
+    left: 0;
+    right: 0;
+    max-height: 14em;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #c8cccf;
+    border-radius: 0.3em;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.eoi-services-panel.is-open {
+    display: block;
+}
+
+.eoi-services-panel label {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5em 0.75em;
+    font-size: 0.85em;
+    cursor: pointer;
+}
+
+.eoi-services-panel label:hover {
+    background: #f4f5f5;
+}
+
+.eoi-selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+    min-height: 2em;
+    padding: 0.5em 0;
+}
+
+.eoi-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0.25em 0.55em;
+    background: rgba(0, 61, 83, 0.08);
+    color: #003d53;
+    border-radius: 0.25em;
+    font-size: 0.78em;
+    font-weight: 600;
+}
+
+.eoi-tag button {
+    border: none;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    font-size: 1.1em;
+}
+
+/* Footer note + submit */
+.eoi-footer-note {
+    margin-top: 2em;
+    padding-top: 1.5em;
+    border-top: 1px solid #e4e6e7;
+    font-size: 0.82em;
+    color: #555;
+    text-align: center;
+}
+
+.eoi-footer-note a {
+    color: #003d53;
+    font-weight: 600;
+}
+
+.eoi-submit-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5em;
+}
+
+.eoi-submit {
+    min-width: 10em;
+    padding: 0.7em 2.5em;
+    background: #003d53;
+    color: #fff;
+    border: none;
+    border-radius: 0.35em;
+    font-weight: 700;
+    font-size: 0.95em;
+    cursor: pointer;
+}
+
+.eoi-submit:hover {
+    background: #002a3a;
+}
+
+.eoi-copyright {
+    text-align: center;
+    margin-top: 2em;
+    font-size: 0.75em;
+    color: #888;
+}
+
+@media (max-width: 900px) {
+    .eoi-grid--3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .eoi-upload-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .eoi-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.25em 1em;
+    }
+
+    .eoi-banner__tagline {
+        white-space: normal;
+    }
+
+    .eoi-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .eoi-actions {
+        align-items: stretch;
+    }
+
+    .eoi-card {
+        padding: 1.25em 1em 1.75em;
+    }
+
+    .eoi-grid--2,
+    .eoi-grid--3 {
+        grid-template-columns: 1fr;
+    }
+}

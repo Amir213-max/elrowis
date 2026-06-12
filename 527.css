@@ -1,0 +1,151 @@
+/*!
+	* Nesma - AR Stylesheet
+*/
+body,
+input,
+textarea,
+select {
+	font-family: Cairo,Tahoma,Arial,sans-serif;
+	direction: rtl;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+}
+
+h2 {
+	padding-bottom: 0.2em;
+}
+
+.arrows_set svg {
+	transform: scaleX(-1);
+}
+
+.tl_progress i {
+	transform-origin: 100% 100%;
+}
+
+/* Margin */
+.expand {
+	right: -0.4em;
+	margin-right: 5em;
+	transform: translateX(-60em);
+}
+.panel_logo_set {
+	margin-left: 1.3em;
+}
+
+.projects_slider .slider_col,
+.team_col_set {
+	margin-left: 2.5em;
+}
+.gallery_slide {
+	margin-left: 1em;
+}
+.slider_parent .n_card {
+	margin-left: 2em;
+}
+
+/* Padding */
+.sidebar_container {
+	padding-left: calc(60px + 3em);
+}
+.ft_links ul li:not(:last-child) {
+	padding-left: 1em;
+	border-left: 1px solid rgba(255,255,255,0.4)
+}
+.s_col {
+	padding-left: 3em;
+}
+.pro_details_inner {
+	padding-left: 60px;
+}
+
+/* Left & Right */
+.team_col .expand {
+	right: 50%;
+	margin-right: -2.25em;
+}
+.section_shape {
+	right: -1em;
+}
+.menu_sub,
+.header_set > i {
+	right: 0;
+}
+.tabs_nav h4:not(:last-child):before {
+	right: calc(100% + 1em);
+}
+.mv_wrap i,
+.l_row > i {
+	right: 50%;
+}
+.close {
+	right: 3em;
+}
+.ft_form .rounded_button {
+	left: 0.9em;
+}
+.map_projects_set {
+	right: 1.25em;
+	left: auto;
+}
+.popup_card .close {
+	left: 2em;
+	right: unset;
+}
+
+/* Responsiveness */
+@media (min-width: 1201px) {
+	.map_vector {
+		left: 15em;
+		right: auto;
+	}
+}
+
+@media (max-width: 1200px) {
+	.slider_col {
+		margin-left: 2.5em;
+	}
+	.map_project,
+	.facts_card_set,
+	.pro_card {
+		margin-left: 2em;
+	}
+}
+
+@media (min-width: 601px) {
+	.impact_col {
+		padding-left: 2em;
+	}
+	.impact_col:not(:last-child) {
+		border-left: 1px solid rgba(0,0,0,0.2);
+	}
+	.block_a {
+		right: 6.25em;
+	}
+	.block_b {
+		left: 6.25em;
+	}
+}
+
+@media (max-width: 600px) {
+	.timeline_col,
+	.sus_col,
+	.facts_card_set,
+	.team_col_set {
+		margin-left: 2em;
+	}
+	.projects_slider .slider_col {
+		margin-left: 1.3em;
+	}
+	.s_col:not(:last-child) {
+		border-left: none;
+	}
+	.sidebar_container {
+		padding-left: calc(60px + 2em);
+	}
+	.close {
+		right: 2em;
+	}
+}

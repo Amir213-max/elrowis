@@ -1,0 +1,735 @@
+/* Site fixes for HTTrack mirror */
+
+:root {
+    --brand-primary: #003d53;
+    --brand-surface: #d5d7d7;
+}
+
+/* Cairo font for entire site */
+body,
+input,
+select,
+textarea,
+button,
+a,
+h1, h2, h3, h4, h5, h6,
+p, span, strong, li,
+label, nav, footer, header {
+    font-family: 'Cairo', sans-serif !important;
+}
+
+/* Hero video fallback background */
+.home_hero .canvas_wrap {
+    background: #0d1b2a center / cover no-repeat;
+}
+
+.home_hero video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/* Ensure page is visible even if main JS is slow */
+#smooth-wrapper {
+    visibility: visible !important;
+}
+
+/* Contact page map */
+.contact_map_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    margin-top: 2em;
+}
+
+.contact_map_wrap h4 {
+    margin: 0;
+}
+
+.contact_map {
+    position: relative;
+    width: 100%;
+    height: 18em;
+    border-radius: 1.25em;
+    overflow: hidden;
+    background: #f0f0f0;
+    box-shadow: 0 0.25em 1.5em rgba(0, 0, 0, 0.08);
+}
+
+.contact_map iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Homepage map section (#map) */
+#map .map_hero {
+    position: relative;
+    overflow: hidden;
+}
+
+#map .map_vector {
+    opacity: 1;
+    z-index: 10;
+    pointer-events: none;
+}
+
+#map .map_vector path {
+    fill: rgba(0, 61, 83, 0.12);
+    stroke: rgba(0, 61, 83, 0.4);
+    stroke-width: 0.6;
+    transition: fill 0.3s ease;
+}
+
+#map .map_vector path.active {
+    fill: rgba(0, 61, 83, 0.45) !important;
+}
+
+/* Brand color overrides */
+.orange_bg,
+.site_button.orange_bg,
+.rounded_button.orange_bg,
+.contact_button.orange_bg {
+    background: #003d53 !important;
+    color: #fff !important;
+}
+
+.orange_color,
+.site_button.outline.orange_color {
+    color: #003d53 !important;
+    border-color: #003d53 !important;
+}
+
+.dark_green_bg,
+.light_green_bg,
+.map_hero.dark_green_bg {
+    background: #d5d7d7 !important;
+    color: #003d53 !important;
+}
+
+.dark_green_bg h1,
+.dark_green_bg h2,
+.dark_green_bg h3,
+.dark_green_bg h4,
+.dark_green_bg h5,
+.dark_green_bg p,
+.dark_green_bg span,
+.light_green_bg h1,
+.light_green_bg h2,
+.light_green_bg h3,
+.light_green_bg h4,
+.light_green_bg h5,
+.map_hero h1,
+.map_hero h2,
+.map_hero h5,
+#map .pro_card,
+#map .projects {
+    color: #003d53;
+}
+
+.dark_green_bg .gray_color,
+.light_green_bg .gray_color,
+.map_hero .gray_color,
+#projects .gray_color {
+    color: rgba(0, 61, 83, 0.85) !important;
+}
+
+/* Darker text on gray brand surfaces (avoid low-contrast white) */
+.dark_green_bg,
+.light_green_bg,
+.map_hero.dark_green_bg,
+#projects,
+#projects .dark_green_bg {
+    color: #003d53;
+}
+
+.dark_green_bg h1,
+.dark_green_bg h2,
+.dark_green_bg h3,
+.dark_green_bg h4,
+.dark_green_bg h5,
+.dark_green_bg h6,
+.dark_green_bg p,
+.dark_green_bg li,
+.dark_green_bg .high,
+.light_green_bg h1,
+.light_green_bg h2,
+.light_green_bg h3,
+.light_green_bg h4,
+.light_green_bg h5,
+.light_green_bg h6,
+.light_green_bg p,
+.light_green_bg li,
+.light_green_bg .high,
+#projects h5,
+#projects .pro_title,
+#projects .pro_title h5 {
+    color: #003d53 !important;
+}
+
+.pagination .active a,
+.pagination a:hover {
+    background-color: #003d53 !important;
+    color: #fff !important;
+}
+
+.popup_wrap {
+    background: rgba(213, 215, 215, 0.92) !important;
+}
+
+@media (min-width: 1201px) {
+    /* Two columns: map + title on the left, project cards on the right */
+    #map .map_hero {
+        display: grid !important;
+        direction: ltr;
+        grid-template-columns: min(42em, 44vw) minmax(0, 42em);
+        grid-template-rows: auto auto;
+        justify-content: space-between;
+        align-content: start;
+        align-items: start;
+        column-gap: 3em;
+        row-gap: 1.5em;
+        min-height: 100vh;
+        padding-top: 3em;
+        padding-bottom: 3em;
+    }
+
+    #map .map_vector {
+        position: relative !important;
+        grid-column: 1;
+        grid-row: 1;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: none;
+        margin: 0;
+    }
+
+    #map .map_vector svg {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Title + description + button below the map on the left */
+    #map .map_head_set {
+        position: relative !important;
+        grid-column: 1;
+        grid-row: 2;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        width: 100% !important;
+        max-width: none;
+        z-index: 1;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        gap: 1.25em;
+        padding-bottom: 0;
+    }
+
+    #map .map_head {
+        width: 100% !important;
+        max-width: none !important;
+    }
+
+    #map .map_head_set .site_button {
+        align-self: flex-start;
+        margin-top: 0.25em;
+    }
+
+    #map .map_projects_set {
+        position: relative !important;
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        width: 100%;
+        max-width: 42em;
+        height: calc(100vh - 6em);
+        max-height: calc(100vh - 6em);
+        justify-self: end;
+        align-self: stretch;
+        overflow: hidden;
+        z-index: 199;
+    }
+}
+
+@media (max-width: 1200px) {
+    #map .map_hero {
+        min-height: 70em;
+    }
+
+    #map .map_head_set {
+        position: absolute;
+        top: auto !important;
+        bottom: 22em;
+        left: 3em !important;
+        right: 3em !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 1em;
+        max-width: none;
+        z-index: 200;
+    }
+
+    #map .map_head {
+        width: 100% !important;
+    }
+
+    #map .map_vector {
+        top: 38% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+    }
+}
+
+html[dir="rtl"] #map .map_head_set,
+html[dir="rtl"] #map .map_head {
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] #map .map_head_set .site_button {
+    align-self: flex-end;
+}
+
+/* Image loading placeholder */
+.load_bg:not([style*="background-image"]),
+.load_bg[style*="background-image: url()"] {
+    background-color: #1a1a2e;
+    background-image: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%) !important;
+}
+
+.load_img:not([src]),
+.load_img[src=""] {
+    background: #e8e8e8;
+    min-height: 12em;
+}
+
+/* Map project cards - ensure images show */
+.map_card .load_bg {
+    min-height: 10em;
+}
+
+/* Fix missing favicon flash */
+link[rel="icon"][href*="favicon"] {
+    display: none;
+}
+
+/* Newsletter / contact form offline notice */
+.form_offline_notice {
+    display: none;
+    font-size: 0.85em;
+    color: #888;
+    margin-top: 0.5em;
+}
+
+form[wire\\:submit] + .form_offline_notice,
+.ft_form + .form_offline_notice {
+    display: block;
+}
+
+/* Responsive map */
+@media (max-width: 768px) {
+    .contact_map {
+        height: 14em;
+    }
+
+    .info_side {
+        flex: 1 1 auto !important;
+        width: 100%;
+    }
+}
+
+/* RTL support for Arabic contact map */
+html[dir="rtl"] .contact_map_wrap {
+    text-align: right;
+}
+
+/* Our Projects 3D map */
+#projects {
+    position: relative;
+    min-height: 100vh;
+}
+
+#projects .containerWrap {
+    position: relative;
+    width: 100%;
+    min-height: 50vh;
+    z-index: 1;
+}
+
+#projects #container {
+    position: relative;
+    width: 100%;
+    min-height: inherit;
+    overflow: hidden;
+}
+
+#projects #container canvas {
+    display: block !important;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+@media (min-width: 1201px) {
+    #projects .containerWrap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        min-height: 100vh;
+    }
+
+    #projects .projects {
+        pointer-events: none;
+    }
+
+    #projects .pro_cards,
+    #projects .arrows_set {
+        pointer-events: all;
+    }
+}
+
+@media (max-width: 1200px) {
+    #projects .containerWrap {
+        min-height: 55vh;
+    }
+
+    #projects .projects .arrows_set {
+        display: flex !important;
+        pointer-events: all;
+    }
+}
+
+/* Our Projects page: remove white fog overlay on 3D map */
+#projects #container::before {
+    display: none !important;
+    content: none !important;
+}
+
+#projects .pro_card {
+    color: #003d53 !important;
+    background: rgba(255, 255, 255, 0.88) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 0.25em 1.25em rgba(0, 0, 0, 0.08);
+}
+
+#projects .pro_card.is-selected {
+    background: rgba(255, 255, 255, 0.96) !important;
+}
+
+#projects .pro_card .map_card_info {
+    border-color: rgba(0, 61, 83, 0.2) !important;
+}
+
+#projects .pro_card .map_card_info span,
+#projects .pro_card .gray_color {
+    color: rgba(0, 61, 83, 0.85) !important;
+}
+
+#projects .projects .arrows_set {
+    color: #003d53 !important;
+}
+
+/* Navbar brand icon (hex logo, navy) */
+.main_logo {
+    display: block !important;
+    height: 2.35em !important;
+    width: 2.7em !important;
+    min-width: 2.7em !important;
+    flex: 2.7em 0 0 !important;
+    position: relative !important;
+    z-index: 10 !important;
+    background: none !important;
+    background-color: transparent !important;
+}
+
+.main_logo svg {
+    display: block !important;
+    opacity: 1 !important;
+    position: static !important;
+    width: auto !important;
+    height: 100% !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+}
+
+.main_logo svg path {
+    fill: #003d53 !important;
+}
+
+/* Nav pill covers full bar including logo icon */
+html[dir="rtl"] .header_set > i,
+html[dir="ltr"] .header_set > i {
+    left: 0 !important;
+    right: 0 !important;
+    width: auto !important;
+}
+
+/* Smoother navbar open / close animation */
+body:not(.progress) .header_set > i,
+body:not(.progress) .expand,
+body:not(.progress) nav,
+body:not(.progress) .header_set,
+body:not(.progress) .lang,
+body:not(.progress) .contact_button,
+body:not(.progress) .contact_button strong,
+body:not(.progress) .contact_button svg {
+    transition-property: width, min-width, max-width, opacity, transform, padding, gap, left, right, visibility !important;
+    transition-duration: 0.85s !important;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+#loader svg path {
+    display: none !important;
+}
+
+#loader svg {
+    background: url('images/alruwais-logo-transparent.png') center / contain no-repeat !important;
+    background-color: transparent !important;
+    width: 19em !important;
+    height: 6.5em !important;
+    max-width: 92vw;
+}
+
+@media (min-width: 601px) {
+    .main_logo {
+        height: 2.35em !important;
+        width: 2.7em !important;
+        min-width: 2.7em !important;
+        flex: 2.7em 0 0 !important;
+    }
+
+    /* Collapsed navbar when scrolled: compact pill (+ icon + hex logo) */
+    header.scrolled:not(.forceOpened) .header_set {
+        min-width: 8em;
+        padding: 0.5em 0.65em;
+        gap: 0;
+        transition: min-width 0.85s cubic-bezier(0.4, 0, 0.2, 1),
+            padding 0.85s cubic-bezier(0.4, 0, 0.2, 1),
+            gap 0.85s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    html[dir="rtl"] header.scrolled:not(.forceOpened) .header_set > i,
+    html[dir="ltr"] header.scrolled:not(.forceOpened) .header_set > i {
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+    }
+
+    header.scrolled:not(.forceOpened) nav {
+        position: absolute !important;
+        max-width: 0 !important;
+        overflow: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        visibility: visible !important;
+    }
+
+    header.scrolled:not(.forceOpened) .header_set .expand {
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+        background: #003d53 !important;
+        color: #fff !important;
+    }
+
+    header.scrolled.forceOpened .header_set {
+        min-width: 0;
+    }
+
+    header.scrolled.forceOpened nav {
+        position: static !important;
+        max-width: none !important;
+        overflow: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .main_logo {
+        height: 3em !important;
+        width: 3em !important;
+        min-width: 3em !important;
+        flex-basis: 3em !important;
+    }
+}
+
+/* Media gallery */
+#gallery .section_body {
+    min-height: 32em;
+    width: 100%;
+}
+
+#gallery .gallery_slider {
+    min-height: 30em;
+    width: 100%;
+}
+
+#gallery .gallery_slider.flickity-enabled {
+    height: 30em;
+    min-height: 30em;
+}
+
+#gallery .gallery_slider .flickity-viewport,
+#gallery .gallery_slider.flickity-enabled .flickity-viewport {
+    height: 30em !important;
+    min-height: 30em !important;
+}
+
+#gallery .gallery_slider.flickity-enabled .flickity-slider {
+    height: 30em;
+}
+
+#gallery .gallery_slide {
+    height: 30em;
+}
+
+#gallery .gallery_slide img {
+    display: block;
+    height: 30em;
+    width: auto;
+    max-width: none;
+    object-fit: cover;
+    border-radius: 0.5em;
+}
+
+/* Fallback if Flickity has not initialized yet */
+#gallery .gallery_slider:not(.flickity-enabled) {
+    display: flex;
+    gap: 1em;
+    overflow-x: auto;
+    padding-bottom: 1em;
+    scroll-snap-type: x mandatory;
+}
+
+#gallery .gallery_slider:not(.flickity-enabled) .gallery_slide {
+    flex: 0 0 auto;
+    position: relative;
+    scroll-snap-align: start;
+}
+
+/* Grid cards: navy overlay instead of orange */
+.grid_col:before {
+    background: rgba(0, 61, 83, 0.55) !important;
+}
+
+/* Careers page: orange → semi-transparent navy (#003d53) */
+.page-careers {
+    --careers-navy: rgba(0, 61, 83, 0.82);
+    --careers-navy-soft: rgba(0, 61, 83, 0.55);
+    --careers-navy-border: rgba(0, 61, 83, 0.72);
+}
+
+.page-careers .grid_col:before {
+    background: var(--careers-navy-soft) !important;
+}
+
+.page-careers .orange_bg,
+.page-careers .site_button.orange_bg,
+.page-careers .rounded_button.orange_bg,
+.page-careers .contact_button.orange_bg,
+.page-careers .burger_wrap .orange_bg {
+    background: var(--careers-navy) !important;
+}
+
+.page-careers .orange_color,
+.page-careers .site_button.outline.orange_color {
+    color: var(--careers-navy-border) !important;
+    border-color: var(--careers-navy-border) !important;
+}
+
+.page-careers #internship-request .site_button.outline,
+.page-careers #work-with-us .site_button.outline {
+    color: var(--careers-navy-border) !important;
+    border-color: var(--careers-navy-border) !important;
+}
+
+.page-careers .hero_wrap .site_button.outline,
+.page-careers .grid_col .site_button.outline {
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.page-careers .rounded_button.outline {
+    color: var(--careers-navy-border) !important;
+}
+
+.page-careers .rounded_button.outline:after {
+    background: var(--careers-navy) !important;
+}
+
+.page-careers path[fill="#F27E20"],
+.page-careers path[fill="#f27e20"] {
+    fill: var(--careers-navy) !important;
+}
+
+/* Value icons (orange PNGs → semi-transparent navy) */
+.page-careers #internal-values .v_col img {
+    filter: brightness(0) saturate(100%) invert(17%) sepia(42%) saturate(1400%) hue-rotate(157deg) brightness(0.95);
+    opacity: 0.88;
+}
+
+/* Vendors page */
+.page-vendors .grid_col:before {
+    background: rgba(0, 61, 83, 0.68) !important;
+}
+
+.page-vendors .grid_col .full_bg {
+    filter: sepia(0.35) hue-rotate(162deg) saturate(0.75) brightness(0.86);
+}
+
+.page-vendors .grid_col .site_button.outline {
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.page-vendors #vendors-hub-header .site_button.outline {
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.page-vendors .nhti_card h4 {
+    color: #003d53 !important;
+}
+
+/* Sustainability page */
+.page-sustainability #sustainability-report .grid_col:before {
+    background: rgba(0, 61, 83, 0.68) !important;
+}
+
+.page-sustainability #sustainability-report .grid_col .full_bg {
+    filter: sepia(0.35) hue-rotate(162deg) saturate(0.75) brightness(0.86);
+}
+
+.page-sustainability #sustainability-report .grid_col .site_button.outline {
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.page-sustainability .sus_col.active {
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #003d53 !important;
+}
+
+.page-sustainability .sus_col.active .gray_color {
+    color: rgba(0, 61, 83, 0.75) !important;
+}
+
+.page-sustainability .sus_col:not(.active) {
+    border-color: rgba(255, 255, 255, 0.55) !important;
+}

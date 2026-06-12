@@ -1,0 +1,137 @@
+/*!
+	* Nesma - EN Stylesheet
+*/
+body,
+input,
+textarea,
+select {
+	font-family: Maison Neue,Tahoma,Arial,sans-serif;
+}
+
+.s_col:not(:last-child),
+.pro_col ul li:not(:last-child) {
+	border-right: 1px solid rgba(0,0,0,0.2)
+}
+
+/* Margin */
+.expand {
+	left: -0.4em;
+	margin-left: 5em;
+	transform: translateX(60em);
+}
+.panel_logo_set {
+	margin-right: 1.3em;
+}
+
+.projects_slider .slider_col,
+.team_col_set {
+	margin-right: 2.5em;
+}
+.gallery_slide {
+	margin-right: 1em;
+}
+.slider_parent .n_card {
+	margin-right: 2em;
+}
+
+/* Padding */
+.sidebar_container {
+	padding-right: calc(60px + 3em);
+}
+.ft_links ul li:not(:last-child) {
+	padding-right: 1em;
+	border-right: 1px solid rgba(255,255,255,0.4)
+}
+.s_col {
+	padding-right: 3em;
+}
+.pro_details_inner {
+	padding-right: 60px;
+}
+
+/* Left & Right */
+.team_col .expand {
+	left: 50%;
+	margin-left: -2.25em;
+}
+.section_shape {
+	left: -1em;
+}
+.menu_sub,
+.header_set > i {
+	left: 0;
+}
+.tabs_nav h4:not(:last-child):before {
+	left: calc(100% + 1em);
+}
+.mv_wrap i,
+.l_row > i {
+	left: 50%;
+}
+.close {
+	left: 3em;
+}
+.ft_form .rounded_button {
+	right: 0.9em;
+}
+.map_projects_set {
+	right: 1.25em;
+}
+.popup_card .close {
+	right: 2em;
+	left: unset;
+}
+
+/* Responsiveness */
+@media (min-width: 1201px) {
+	.map_vector {
+		left: 15em;
+	}
+}
+
+@media (max-width: 1200px) {
+	.slider_col {
+		margin-right: 2.5em;
+	}
+	.map_project,
+	.facts_card_set,
+	.pro_card {
+		margin-right: 2em;
+	}
+}
+
+@media (min-width: 601px) {
+	.impact_col {
+		padding-right: 2em;
+	}
+	.impact_col:not(:last-child) {
+		border-right: 1px solid rgba(0,0,0,0.2);
+	}
+	.block_a {
+		left: 6.25em;
+	}
+	.block_b {
+		right: 6.25em;
+	}
+}
+
+@media (max-width: 600px) {
+	.timeline_col,
+	.sus_col,
+	.facts_card_set,
+	.team_col_set {
+		margin-right: 2em;
+	}
+	.projects_slider .slider_col {
+		margin-right: 1.3em;
+	}
+	.s_col:not(:last-child) {
+		border-right: none;
+	}
+	.sidebar_container {
+		padding-right: calc(60px + 2em);
+	}
+	.close {
+		left: 2em;
+	}
+}
