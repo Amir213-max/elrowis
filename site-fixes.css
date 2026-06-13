@@ -359,7 +359,7 @@ label, nav, footer, header {
     }
 
     #map .map_projects,
-    #map .map_projects.map-slide-native {
+    #map .map_projects.map-swipe-native {
         width: 100% !important;
         min-height: 0 !important;
         direction: ltr !important;
@@ -367,24 +367,37 @@ label, nav, footer, header {
         opacity: 1 !important;
         padding: 0 !important;
         margin: 0 !important;
-        display: block !important;
-        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+        overscroll-behavior-x: contain;
+        gap: 0 !important;
         height: auto !important;
+        scrollbar-width: none;
+    }
+
+    #map .map_projects.map-swipe-native::-webkit-scrollbar {
+        display: none;
     }
 
     #map .map_projects .map_project,
-    #map .map_projects.map-slide-native .map_project {
-        display: none !important;
+    #map .map_projects.map-swipe-native .map_project {
+        display: block !important;
+        flex: 0 0 100% !important;
         width: 100% !important;
         max-width: 100% !important;
+        min-width: 100% !important;
         box-sizing: border-box;
         margin: 0 !important;
         padding: 0 !important;
-    }
-
-    #map .map_projects .map_project.is-active,
-    #map .map_projects.map-slide-native .map_project.is-active {
-        display: block !important;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
     }
 
     #map .map_projects_set,
@@ -446,6 +459,9 @@ label, nav, footer, header {
         overflow: visible !important;
         height: auto !important;
         min-height: 0 !important;
+        touch-action: pan-x;
+        padding: 1.5em !important;
+        gap: 1.1em !important;
     }
 
     html[dir="rtl"] #map .map_card,
@@ -458,8 +474,8 @@ label, nav, footer, header {
 
     #map .map_card_cover {
         flex: unset !important;
-        height: 16em !important;
-        min-height: 16em !important;
+        height: 20em !important;
+        min-height: 20em !important;
         width: 100% !important;
     }
 
@@ -467,7 +483,8 @@ label, nav, footer, header {
         height: auto !important;
         min-height: 0 !important;
         overflow: visible !important;
-        line-height: 1.35 !important;
+        line-height: 1.4 !important;
+        font-size: 1.35em !important;
     }
 
     #map .map_card p {
@@ -511,36 +528,36 @@ label, nav, footer, header {
     }
 
     #map .map_card {
-        padding: 1.25em !important;
-        gap: 0.85em !important;
+        padding: 1.35em !important;
+        gap: 1em !important;
         margin: 0 !important;
     }
 
     #map .map_card_cover {
-        height: 13em !important;
-        min-height: 13em !important;
+        height: 18em !important;
+        min-height: 18em !important;
         border-radius: 0.75em;
         overflow: hidden;
     }
 
     #map .map_card h3 {
-        font-size: 1.15em !important;
-        line-height: 1.4 !important;
+        font-size: 1.25em !important;
+        line-height: 1.45 !important;
         height: auto !important;
         overflow: visible !important;
     }
 
     #map .map_card_info {
         flex-wrap: wrap;
-        gap: 0.3em 0.6em;
-        font-size: 0.8em;
-        line-height: 1.4;
-        padding-top: 0.5em !important;
-        padding-bottom: 0.5em !important;
+        gap: 0.4em 0.75em;
+        font-size: 0.85em;
+        line-height: 1.45;
+        padding-top: 0.6em !important;
+        padding-bottom: 0.6em !important;
     }
 
     #map .map_card_head {
-        gap: 0.5em !important;
+        gap: 0.65em !important;
         width: 100% !important;
     }
 

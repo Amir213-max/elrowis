@@ -290,7 +290,7 @@
             var flkty = window.Flickity.data(slider);
             if (flkty) flkty.destroy();
         }
-        slider.classList.remove('flickity-enabled', 'flickity-rtl', 'map-mobile-native', 'map-scroll-native', 'map-slide-native');
+        slider.classList.remove('flickity-enabled', 'flickity-rtl', 'map-mobile-native', 'map-scroll-native', 'map-slide-native', 'map-swipe-native');
         slider.removeAttribute('style');
         slider.querySelectorAll('.map_project').forEach(function (p) {
             p.removeAttribute('style');
@@ -359,37 +359,98 @@
             index: typeof projectsSet.__mobileIdx === 'number' ? projectsSet.__mobileIdx : 0
         };
 
-        slider.classList.remove('map-mobile-native', 'map-scroll-native');
-        slider.classList.add('map-slide-native');
-        slider.dataset.mapMode = 'slide-native';
+        slider.classList.remove('map-mobile-native', 'map-scroll-native', 'map-slide-native');
+        slider.classList.add('map-swipe-native');
+        slider.dataset.mapMode = 'swipe-native';
         slider.dataset.mapFixed = '1';
-        slider.scrollLeft = 0;
 
-        function show(index) {
+        projects.forEach(function (project, i) {
+            project.classList.toggle('is-active', i === state.index);
+            project.style.removeProperty('display');
+            project.style.setProperty('flex', '0 0 100%', 'important');
+            project.style.setProperty('width', '100%', 'important');
+            forceVisible(project);
+            project.querySelectorAll('.map_card, ._eleY, .load_bg').forEach(forceVisible);
+        });
+
+        function scrollToIndex(index, smooth) {
             state.index = Math.max(0, Math.min(index, projects.length - 1));
             projectsSet.__mobileIdx = state.index;
             projects.forEach(function (project, i) {
-                var active = i === state.index;
-                project.classList.toggle('is-active', active);
-                project.style.setProperty('display', active ? 'block' : 'none', 'important');
-                forceVisible(project);
-                project.querySelectorAll('.map_card, ._eleY, .load_bg').forEach(forceVisible);
+                project.classList.toggle('is-active', i === state.index);
             });
+            var target = projects[state.index];
+            if (target) {
+                var left = target.offsetLeft;
+                if (smooth && slider.scrollTo) {
+                    slider.scrollTo({ left: left, behavior: 'smooth' });
+                } else {
+                    slider.scrollLeft = left;
+                }
+            }
             updateMapPath(state.index);
-            updateMapDots(projectsSet, api, state.index);
-            ensureMapNav(projectsSet, api);
         }
 
         var api = {
             cells: projects,
             get selectedIndex() { return state.index; },
-            select: function (index) { show(index); },
-            previous: function () { show(state.index - 1); },
-            next: function () { show(state.index + 1); }
+            select: function (index) { scrollToIndex(index, true); },
+            previous: function () { scrollToIndex(state.index - 1, true); },
+            next: function () { scrollToIndex(state.index + 1, true); }
         };
 
+        if (!slider.dataset.swipeBound) {
+            slider.dataset.swipeBound = '1';
+
+            var scrollTimer;
+            slider.addEventListener('scroll', function () {
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(function () {
+                    var closest = 0;
+                    var min = Infinity;
+                    var scrollPos = slider.scrollLeft;
+                    projects.forEach(function (project, i) {
+                        var dist = Math.abs(project.offsetLeft - scrollPos);
+                        if (dist < min) {
+                            min = dist;
+                            closest = i;
+                        }
+                    });
+                    if (closest !== state.index) {
+                        state.index = closest;
+                        projectsSet.__mobileIdx = closest;
+                        projects.forEach(function (project, i) {
+                            project.classList.toggle('is-active', i === closest);
+                        });
+                        updateMapPath(closest);
+                    }
+                }, 80);
+            }, { passive: true });
+
+            var touchStartX = 0;
+            var touchStartY = 0;
+            var touchActive = false;
+
+            slider.addEventListener('touchstart', function (e) {
+                if (!e.touches.length) return;
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                touchActive = true;
+            }, { passive: true });
+
+            slider.addEventListener('touchend', function (e) {
+                if (!touchActive || !e.changedTouches.length) return;
+                touchActive = false;
+                var dx = e.changedTouches[0].clientX - touchStartX;
+                var dy = e.changedTouches[0].clientY - touchStartY;
+                if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+                if (dx > 0) api.next();
+                else api.previous();
+            }, { passive: true });
+        }
+
         projectsSet.__mapFlkty = api;
-        show(state.index);
+        scrollToIndex(state.index, false);
         return api;
     }
 
@@ -535,7 +596,7 @@
         var existingNav = projectsSet.querySelector('.map_projects_nav');
         if (existingNav) existingNav.remove();
 
-        if (slider.dataset.mapMode === 'slide-native' && !slider.classList.contains('flickity-enabled')) {
+        if (slider.dataset.mapMode === 'swipe-native' && !slider.classList.contains('flickity-enabled')) {
             var activeApi = projectsSet.__mapFlkty;
             if (activeApi) {
                 updateMapDots(projectsSet, activeApi, activeApi.selectedIndex);
