@@ -425,8 +425,8 @@ label, nav, footer, header {
         left: auto !important;
         right: auto !important;
         transform: none !important;
-        width: min(90vw, 26em) !important;
-        max-width: 26em;
+        width: min(94vw, 34em) !important;
+        max-width: 34em;
         margin: 0 auto 1em;
         z-index: 2;
         order: 2 !important;
@@ -604,6 +604,49 @@ label, nav, footer, header {
     }
 }
 
+/* Tablet: larger map, slider lower, two project cards visible */
+@media (min-width: 601px) and (max-width: 1200px) {
+    #map .map_vector {
+        width: min(96vw, 44em) !important;
+        max-width: 44em !important;
+        transform: scale(1.18) !important;
+        transform-origin: center center;
+        margin-bottom: 2em !important;
+    }
+
+    #map .map_projects_set {
+        margin-top: 2.5em !important;
+        padding-top: 0.5em !important;
+    }
+
+    #map .map_projects,
+    #map .map_projects.map-swipe-native,
+    #map .map_projects.map-tablet-native {
+        gap: 1em !important;
+        padding: 0 1.5em 1.5em !important;
+        box-sizing: border-box;
+    }
+
+    #map .map_projects .map_project,
+    #map .map_projects.map-swipe-native .map_project,
+    #map .map_projects.map-tablet-native .map_project {
+        flex: 0 0 calc(50% - 0.5em) !important;
+        width: calc(50% - 0.5em) !important;
+        max-width: calc(50% - 0.5em) !important;
+        min-width: calc(50% - 0.5em) !important;
+        scroll-snap-align: start;
+    }
+
+    #map .map_card_cover {
+        height: 16em !important;
+        min-height: 16em !important;
+    }
+
+    #map .map_card h3 {
+        font-size: 1.15em !important;
+    }
+}
+
 @media (max-width: 600px) {
     #map .map_hero {
         padding-top: 4.5em !important;
@@ -619,14 +662,23 @@ label, nav, footer, header {
     }
 
     #map .map_vector {
-        width: min(94vw, 22em) !important;
-        max-width: 22em !important;
-        margin-bottom: 1em;
+        width: 96vw !important;
+        max-width: none !important;
+        transform: scale(1.15) !important;
+        transform-origin: center center;
+        margin-bottom: 0.75em;
         order: 2 !important;
+    }
+
+    #map .map_vector svg {
+        width: 100%;
+        height: auto;
+        display: block;
     }
 
     #map .map_projects_set {
         padding: 0 1em 2em !important;
+        margin-top: 1.5em !important;
         min-height: 0 !important;
         order: 3 !important;
     }

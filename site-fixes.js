@@ -367,11 +367,10 @@
         projects.forEach(function (project, i) {
             project.classList.toggle('is-active', i === state.index);
             project.style.removeProperty('display');
-            project.style.setProperty('flex', '0 0 100%', 'important');
-            project.style.setProperty('width', '100%', 'important');
             forceVisible(project);
             project.querySelectorAll('.map_card, ._eleY, .load_bg').forEach(forceVisible);
         });
+        applyMapNativeCellSizes(slider);
 
         function getActiveIndex() {
             var center = slider.scrollLeft + slider.clientWidth / 2;
@@ -441,6 +440,29 @@
 
     function isMapMobile() {
         return window.innerWidth <= 600;
+    }
+
+    function isMapTablet() {
+        return window.innerWidth > 600 && window.innerWidth <= 1200;
+    }
+
+    function applyMapNativeCellSizes(slider) {
+        if (!slider) return;
+        var isTablet = isMapTablet();
+        slider.classList.toggle('map-tablet-native', isTablet);
+        slider.querySelectorAll('.map_project').forEach(function (project) {
+            if (isTablet) {
+                project.style.setProperty('flex', '0 0 calc(50% - 0.5em)', 'important');
+                project.style.setProperty('width', 'calc(50% - 0.5em)', 'important');
+                project.style.setProperty('max-width', 'calc(50% - 0.5em)', 'important');
+                project.style.setProperty('min-width', 'calc(50% - 0.5em)', 'important');
+            } else {
+                project.style.setProperty('flex', '0 0 100%', 'important');
+                project.style.setProperty('width', '100%', 'important');
+                project.style.setProperty('max-width', '100%', 'important');
+                project.style.setProperty('min-width', '100%', 'important');
+            }
+        });
     }
 
     function syncMapCarouselCells(flkty, slider) {
@@ -582,6 +604,7 @@
         if (existingNav) existingNav.remove();
 
         if (slider.dataset.mapMode === 'swipe-native' && !slider.classList.contains('flickity-enabled')) {
+            applyMapNativeCellSizes(slider);
             var activeApi = projectsSet.__mapFlkty;
             if (activeApi) {
                 updateMapDots(projectsSet, activeApi, activeApi.selectedIndex);
@@ -881,6 +904,11 @@
                 delete slider.dataset.mapMode;
             }
             fixMapProjectsCarousel();
+
+            var mapSlider = document.querySelector('#map .map_projects');
+            if (mapSlider && mapSlider.dataset.mapMode === 'swipe-native') {
+                applyMapNativeCellSizes(mapSlider);
+            }
 
             var proSlider = document.querySelector('#projects .pro_cards');
             if (proSlider) {
