@@ -1,0 +1,6 @@
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^ar\.html$ index.html [L,R=302]
+</IfModule>

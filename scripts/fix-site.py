@@ -230,7 +230,7 @@ def patch_html_file(html_path: Path) -> bool:
 
 
 def fix_root_redirects() -> None:
-    for name, target in [("news.html", "en/news.html"), ("press-releases.html", "en/press-releases.html")]:
+    for name, target in [("news.html", "ar/news.html"), ("press-releases.html", "ar/press-releases.html")]:
         path = ROOT / name
         path.write_text(
             f"""<!DOCTYPE html>

@@ -82,6 +82,18 @@
         });
     }
 
+    function redirectRootToArabic() {
+        var path = (window.location.pathname || '/').replace(/\/+$/, '') || '/';
+        var segments = path.split('/').filter(Boolean);
+        var file = segments.length ? segments[segments.length - 1] : '';
+        var isProjectFolder = file === 'nesmapartners.com' && segments.length === 1;
+
+        if (isProjectFolder) {
+            window.location.replace(scriptBase() + 'index.html');
+        }
+    }
+
+    redirectRootToArabic();
     setFavicon();
     updateTitles();
 })();

@@ -256,6 +256,332 @@
         });
     }
 
+    function updateMapPath(index) {
+        var cards = document.querySelectorAll('#map .map_card');
+        var paths = document.querySelectorAll('#map .map_vector path');
+        if (!cards[index]) return;
+        var locationID = cards[index].dataset.location;
+        var pathTarget = document.getElementById(locationID);
+        paths.forEach(function (path) {
+            path.classList.remove('active');
+        });
+        if (pathTarget) {
+            pathTarget.classList.add('active');
+        }
+    }
+
+    function forceVisible(el) {
+        if (!el) return;
+        el.style.setProperty('visibility', 'visible', 'important');
+        el.style.setProperty('opacity', '1', 'important');
+        el.style.setProperty('transform', 'none', 'important');
+    }
+
+    function revealMapProjects(slider) {
+        if (!slider) return;
+        slider.classList.add('inview');
+        forceVisible(slider);
+        slider.querySelectorAll('.map_project, .map_card, .map_card_cover, .map_card_head, ._eleY, .load_bg').forEach(forceVisible);
+    }
+
+    function destroyMapFlickity(slider) {
+        if (!slider) return;
+        if (window.Flickity) {
+            var flkty = window.Flickity.data(slider);
+            if (flkty) flkty.destroy();
+        }
+        slider.classList.remove('flickity-enabled', 'flickity-rtl', 'map-mobile-native', 'map-scroll-native', 'map-slide-native');
+        slider.removeAttribute('style');
+        slider.querySelectorAll('.map_project').forEach(function (p) {
+            p.removeAttribute('style');
+            p.classList.remove('is-active');
+        });
+        delete slider.dataset.mapFixed;
+        delete slider.dataset.mapMode;
+    }
+
+    function isMapCarouselViewport() {
+        return window.innerWidth <= 1200;
+    }
+
+    function restoreMapProjectsDom(slider) {
+        if (!slider) return;
+        var viewport = slider.querySelector('.flickity-viewport');
+        if (viewport) {
+            var track = viewport.querySelector('.flickity-slider');
+            if (track) {
+                Array.prototype.slice.call(track.children).forEach(function (child) {
+                    slider.appendChild(child);
+                });
+            }
+            viewport.remove();
+        }
+        slider.querySelectorAll('.map_project').forEach(function (project) {
+            if (project.parentElement !== slider) {
+                slider.appendChild(project);
+            }
+        });
+    }
+
+    function getMapProjectCells(slider) {
+        restoreMapProjectsDom(slider);
+        var cells = slider.querySelectorAll('.map_project');
+        return Array.prototype.slice.call(cells);
+    }
+
+    function reorderMapSection() {
+        if (!isMapCarouselViewport()) return;
+        var hero = document.querySelector('#map .map_hero');
+        var head = document.querySelector('#map .map_head_set');
+        var vector = document.querySelector('#map .map_vector');
+        var projects = document.querySelector('#map .map_projects_set');
+        if (!hero || !head || !vector || !projects) return;
+        if (head.nextElementSibling !== vector) {
+            hero.insertBefore(head, vector);
+        }
+        if (vector.nextElementSibling !== projects) {
+            hero.insertBefore(projects, null);
+        }
+    }
+
+    function initMobileNativeSlider(slider, projectsSet) {
+        destroyMapFlickity(slider);
+        restoreMapProjectsDom(slider);
+        reorderMapSection();
+        patchBackgroundImages();
+        revealMapProjects(slider);
+        revealMapProjects(projectsSet);
+
+        var projects = getMapProjectCells(slider);
+        if (!projects.length) return null;
+
+        var state = {
+            index: typeof projectsSet.__mobileIdx === 'number' ? projectsSet.__mobileIdx : 0
+        };
+
+        slider.classList.remove('map-mobile-native', 'map-scroll-native');
+        slider.classList.add('map-slide-native');
+        slider.dataset.mapMode = 'slide-native';
+        slider.dataset.mapFixed = '1';
+        slider.scrollLeft = 0;
+
+        function show(index) {
+            state.index = Math.max(0, Math.min(index, projects.length - 1));
+            projectsSet.__mobileIdx = state.index;
+            projects.forEach(function (project, i) {
+                var active = i === state.index;
+                project.classList.toggle('is-active', active);
+                project.style.setProperty('display', active ? 'block' : 'none', 'important');
+                forceVisible(project);
+                project.querySelectorAll('.map_card, ._eleY, .load_bg').forEach(forceVisible);
+            });
+            updateMapPath(state.index);
+            updateMapDots(projectsSet, api, state.index);
+            ensureMapNav(projectsSet, api);
+        }
+
+        var api = {
+            cells: projects,
+            get selectedIndex() { return state.index; },
+            select: function (index) { show(index); },
+            previous: function () { show(state.index - 1); },
+            next: function () { show(state.index + 1); }
+        };
+
+        projectsSet.__mapFlkty = api;
+        show(state.index);
+        return api;
+    }
+
+    function isMapMobile() {
+        return window.innerWidth <= 600;
+    }
+
+    function syncMapCarouselCells(flkty, slider) {
+        var viewport = slider.querySelector('.flickity-viewport');
+        var viewportWidth = viewport ? viewport.clientWidth : slider.offsetWidth;
+        if (!viewportWidth) viewportWidth = slider.offsetWidth;
+
+        var isTablet = viewportWidth > 600;
+        var cellWidth;
+
+        if (isTablet) {
+            var pad = 48;
+            var gap = 12;
+            var available = Math.max(0, viewportWidth - pad);
+            cellWidth = Math.max(180, Math.floor((available - gap) / 2));
+        } else {
+            cellWidth = viewportWidth;
+        }
+
+        flkty.options.rightToLeft = false;
+        flkty.options.percentPosition = false;
+        flkty.options.adaptiveHeight = true;
+        flkty.options.contain = true;
+        flkty.options.cellAlign = isTablet ? 'left' : 'center';
+        slider.classList.remove('flickity-rtl');
+
+        flkty.cells.forEach(function (cell) {
+            cell.size.width = cellWidth;
+            if (cell.element) {
+                cell.element.style.width = cellWidth + 'px';
+                cell.element.style.margin = '0';
+            }
+        });
+    }
+
+    function resizeMapFlickityViewport(flkty) {
+        if (!flkty.viewport || !flkty.selectedElement) return;
+        var height = flkty.selectedElement.offsetHeight;
+        if (height > 0) {
+            flkty.viewport.style.height = (height + 4) + 'px';
+        }
+        if (typeof flkty.reposition === 'function') {
+            flkty.reposition();
+        }
+    }
+
+    function ensureMapNav() {
+        /* arrows removed on mobile — dots only */
+    }
+
+    function initMapCarousel(slider, projectsSet) {
+        var FlickityCtor = window.Flickity;
+        if (!FlickityCtor) return null;
+
+        revealMapProjects(slider);
+        var existing = FlickityCtor.data(slider);
+        var idx = existing ? existing.selectedIndex : 0;
+        if (existing) existing.destroy();
+
+        slider.classList.remove('flickity-rtl');
+        slider.querySelectorAll('.map_project').forEach(function (p) {
+            p.removeAttribute('style');
+        });
+
+        var flkty = new FlickityCtor(slider, {
+            prevNextButtons: false,
+            pageDots: false,
+            draggable: true,
+            percentPosition: false,
+            cellAlign: isMapMobile() ? 'center' : 'left',
+            rightToLeft: false,
+            adaptiveHeight: true,
+            contain: true,
+            watchCSS: false,
+            friction: 0.8,
+            selectedAttraction: 0.2
+        });
+
+        syncMapCarouselCells(flkty, slider);
+        flkty.resize();
+        if (typeof flkty.reposition === 'function') flkty.reposition();
+
+        var safe = Math.min(Math.max(0, idx), Math.max(0, flkty.cells.length - 1));
+        flkty.select(safe, false, true);
+        resizeMapFlickityViewport(flkty);
+        revealMapProjects(slider);
+        updateMapPath(safe);
+
+        flkty.off('change');
+        flkty.on('change', function (i) {
+            updateMapPath(i);
+            resizeMapFlickityViewport(flkty);
+            ensureMapNav(projectsSet, flkty);
+            updateMapDots(projectsSet, flkty, i);
+            revealMapProjects(slider);
+        });
+
+        slider.dataset.mapFixed = '1';
+        return flkty;
+    }
+
+    function refreshMapCarouselAfterImages(slider, projectsSet) {
+        var flkty = window.Flickity && window.Flickity.data(slider);
+        if (!flkty) return;
+        syncMapCarouselCells(flkty, slider);
+        flkty.resize();
+        resizeMapFlickityViewport(flkty);
+        ensureMapNav(projectsSet, flkty);
+    }
+
+    function updateMapDots() {
+        /* dots removed — swipe between projects */
+    }
+
+    function needsMapFix(slider) {
+        if (!slider.classList.contains('flickity-enabled')) return true;
+        if (slider.classList.contains('flickity-rtl')) return true;
+        if (slider.dataset.mapFixed !== '1') return true;
+        var flkty = window.Flickity && window.Flickity.data(slider);
+        return !flkty || flkty.options.rightToLeft;
+    }
+
+    function fixMapProjectsCarousel(attempt) {
+        attempt = attempt || 0;
+        if (!isMapCarouselViewport()) return;
+
+        var projectsSet = document.querySelector('#map .map_projects_set');
+        var slider = document.querySelector('#map .map_projects');
+        if (!projectsSet || !slider) return;
+
+        revealMapProjects(slider);
+        revealMapProjects(projectsSet);
+        patchBackgroundImages();
+        reorderMapSection();
+
+        var existingDots = projectsSet.querySelector('.map_projects_dots');
+        if (existingDots) existingDots.remove();
+        var existingNav = projectsSet.querySelector('.map_projects_nav');
+        if (existingNav) existingNav.remove();
+
+        if (slider.dataset.mapMode === 'slide-native' && !slider.classList.contains('flickity-enabled')) {
+            var activeApi = projectsSet.__mapFlkty;
+            if (activeApi) {
+                updateMapDots(projectsSet, activeApi, activeApi.selectedIndex);
+                ensureMapNav(projectsSet, activeApi);
+            }
+            revealMapProjects(slider);
+            return;
+        }
+
+        initMobileNativeSlider(slider, projectsSet);
+    }
+
+    function watchMapSlider() {
+        var slider = document.querySelector('#map .map_projects');
+        if (!slider || slider.dataset.mapWatch) return;
+        slider.dataset.mapWatch = '1';
+        var observer = new MutationObserver(function () {
+            if (isMapCarouselViewport() && slider.classList.contains('flickity-enabled')) {
+                fixMapProjectsCarousel();
+            }
+        });
+        observer.observe(slider, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    function scheduleMapCarouselFixes() {
+        fixMapProjectsCarousel();
+        setTimeout(fixMapProjectsCarousel, 300);
+        setTimeout(fixMapProjectsCarousel, 800);
+        setTimeout(fixMapProjectsCarousel, 1500);
+        setTimeout(fixMapProjectsCarousel, 3000);
+        setTimeout(fixMapProjectsCarousel, 5000);
+        setTimeout(fixMapProjectsCarousel, 8000);
+
+        var ticks = 0;
+        var guard = setInterval(function () {
+            if (!isMapCarouselViewport()) {
+                clearInterval(guard);
+                return;
+            }
+            revealMapProjects(document.querySelector('#map .map_projects'));
+            fixMapProjectsCarousel();
+            ticks += 1;
+            if (ticks >= 12) clearInterval(guard);
+        }, 1000);
+    }
+
     function setupFormFallbacks() {
         document.querySelectorAll('form[wire\\:submit]').forEach(function (form) {
             if (form.dataset.offlineHandled) return;
@@ -318,6 +644,11 @@
         setupFormFallbacks();
         addOfflineNotices();
         updateBrandMeta();
+        watchMapSlider();
+        reorderMapSection();
+        if (isMapCarouselViewport()) {
+            fixMapProjectsCarousel();
+        }
     });
 
     replaceBrandLogos();
@@ -333,7 +664,23 @@
         updateBrandMeta();
         initGallerySlider();
         scheduleGalleryFixes();
+        scheduleMapCarouselFixes();
+        watchMapSlider();
     });
+
+    window.addEventListener('resize', function () {
+        clearTimeout(window.__mapCarouselResize);
+        window.__mapCarouselResize = setTimeout(function () {
+            var slider = document.querySelector('#map .map_projects');
+            if (slider) {
+                delete slider.dataset.mapFixed;
+                delete slider.dataset.mapMode;
+            }
+            fixMapProjectsCarousel();
+        }, 200);
+    });
+
+    scheduleMapCarouselFixes();
 
     setTimeout(function () {
         ensureVisibility();

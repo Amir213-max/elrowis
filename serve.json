@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/ar.html", "destination": "/index.html", "type": 302 }
+  ]
+}
