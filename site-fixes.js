@@ -373,6 +373,21 @@
             project.querySelectorAll('.map_card, ._eleY, .load_bg').forEach(forceVisible);
         });
 
+        function getActiveIndex() {
+            var center = slider.scrollLeft + slider.clientWidth / 2;
+            var closest = 0;
+            var min = Infinity;
+            projects.forEach(function (project, i) {
+                var projectCenter = project.offsetLeft + project.offsetWidth / 2;
+                var dist = Math.abs(projectCenter - center);
+                if (dist < min) {
+                    min = dist;
+                    closest = i;
+                }
+            });
+            return closest;
+        }
+
         function scrollToIndex(index, smooth) {
             state.index = Math.max(0, Math.min(index, projects.length - 1));
             projectsSet.__mobileIdx = state.index;
@@ -406,16 +421,7 @@
             slider.addEventListener('scroll', function () {
                 clearTimeout(scrollTimer);
                 scrollTimer = setTimeout(function () {
-                    var closest = 0;
-                    var min = Infinity;
-                    var scrollPos = slider.scrollLeft;
-                    projects.forEach(function (project, i) {
-                        var dist = Math.abs(project.offsetLeft - scrollPos);
-                        if (dist < min) {
-                            min = dist;
-                            closest = i;
-                        }
-                    });
+                    var closest = getActiveIndex();
                     if (closest !== state.index) {
                         state.index = closest;
                         projectsSet.__mobileIdx = closest;
@@ -424,28 +430,7 @@
                         });
                         updateMapPath(closest);
                     }
-                }, 80);
-            }, { passive: true });
-
-            var touchStartX = 0;
-            var touchStartY = 0;
-            var touchActive = false;
-
-            slider.addEventListener('touchstart', function (e) {
-                if (!e.touches.length) return;
-                touchStartX = e.touches[0].clientX;
-                touchStartY = e.touches[0].clientY;
-                touchActive = true;
-            }, { passive: true });
-
-            slider.addEventListener('touchend', function (e) {
-                if (!touchActive || !e.changedTouches.length) return;
-                touchActive = false;
-                var dx = e.changedTouches[0].clientX - touchStartX;
-                var dy = e.changedTouches[0].clientY - touchStartY;
-                if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
-                if (dx > 0) api.next();
-                else api.previous();
+                }, 60);
             }, { passive: true });
         }
 
@@ -643,6 +628,158 @@
         }, 1000);
     }
 
+    function isProjectsCarouselViewport() {
+        return window.innerWidth <= 1200;
+    }
+
+    function getProjectsCards(slider) {
+        return Array.prototype.slice.call(slider.querySelectorAll('.pro_card'));
+    }
+
+    function fixProjectsPageCarousel(attempt) {
+        attempt = attempt || 0;
+        if (!isProjectsCarouselViewport()) return;
+
+        var slider = document.querySelector('#projects .pro_cards');
+        if (!slider) return;
+
+        if (slider.dataset.proMode === 'swipe-native' && !slider.classList.contains('flickity-enabled')) {
+            return;
+        }
+
+        var FlickityCtor = window.Flickity;
+        if (!FlickityCtor) {
+            if (attempt < 20) {
+                setTimeout(function () { fixProjectsPageCarousel(attempt + 1); }, 400);
+            }
+            return;
+        }
+
+        var flkty = FlickityCtor.data(slider);
+        if (!flkty || !flkty.isActive) {
+            if (attempt < 20) {
+                setTimeout(function () { fixProjectsPageCarousel(attempt + 1); }, 400);
+            }
+            return;
+        }
+
+        var cards = getProjectsCards(slider);
+        if (!cards.length) return;
+
+        var state = {
+            index: Math.max(0, Math.min(flkty.selectedIndex || 0, cards.length - 1))
+        };
+
+        flkty.deactivate();
+        slider.classList.remove('flickity-enabled', 'flickity-rtl');
+        slider.classList.add('pro-swipe-native');
+        slider.dataset.proMode = 'swipe-native';
+        slider.removeAttribute('style');
+
+        cards.forEach(function (card, i) {
+            card.removeAttribute('style');
+            card.classList.toggle('is-selected', i === state.index);
+        });
+
+        function emitChange(index) {
+            if (typeof flkty.emitEvent === 'function') {
+                flkty.emitEvent('change', [index]);
+            }
+        }
+
+        function scrollToIndex(index, smooth) {
+            state.index = Math.max(0, Math.min(index, cards.length - 1));
+            cards.forEach(function (card, i) {
+                card.classList.toggle('is-selected', i === state.index);
+            });
+            var target = cards[state.index];
+            if (target) {
+                var left = target.offsetLeft - Math.max(0, (slider.clientWidth - target.offsetWidth) / 2);
+                if (smooth && slider.scrollTo) {
+                    slider.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
+                } else {
+                    slider.scrollLeft = Math.max(0, left);
+                }
+            }
+            emitChange(state.index);
+        }
+
+        flkty.select = function (index) {
+            scrollToIndex(index, true);
+        };
+        flkty.next = function () {
+            scrollToIndex(state.index + 1, true);
+        };
+        flkty.previous = function () {
+            scrollToIndex(state.index - 1, true);
+        };
+
+        if (!slider.dataset.proSwipeBound) {
+            slider.dataset.proSwipeBound = '1';
+            var scrollTimer;
+            slider.addEventListener('scroll', function () {
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(function () {
+                    var center = slider.scrollLeft + slider.clientWidth / 2;
+                    var closest = 0;
+                    var min = Infinity;
+                    cards.forEach(function (card, i) {
+                        var cardCenter = card.offsetLeft + card.offsetWidth / 2;
+                        var dist = Math.abs(cardCenter - center);
+                        if (dist < min) {
+                            min = dist;
+                            closest = i;
+                        }
+                    });
+                    if (closest !== state.index) {
+                        state.index = closest;
+                        cards.forEach(function (card, i) {
+                            card.classList.toggle('is-selected', i === closest);
+                        });
+                        emitChange(closest);
+                    }
+                }, 60);
+            }, { passive: true });
+        }
+
+        scrollToIndex(state.index, false);
+    }
+
+    function watchProjectsSlider() {
+        var slider = document.querySelector('#projects .pro_cards');
+        if (!slider || slider.dataset.proWatch) return;
+        slider.dataset.proWatch = '1';
+        var observer = new MutationObserver(function () {
+            if (isProjectsCarouselViewport() && slider.classList.contains('flickity-enabled')) {
+                delete slider.dataset.proMode;
+                delete slider.dataset.proSwipeBound;
+                fixProjectsPageCarousel();
+            }
+        });
+        observer.observe(slider, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    function scheduleProjectsCarouselFixes() {
+        fixProjectsPageCarousel();
+        setTimeout(fixProjectsPageCarousel, 300);
+        setTimeout(fixProjectsPageCarousel, 800);
+        setTimeout(fixProjectsPageCarousel, 1500);
+        setTimeout(fixProjectsPageCarousel, 3000);
+        setTimeout(fixProjectsPageCarousel, 5000);
+        setTimeout(fixProjectsPageCarousel, 8000);
+
+        var ticks = 0;
+        var guard = setInterval(function () {
+            if (!isProjectsCarouselViewport()) {
+                clearInterval(guard);
+                return;
+            }
+            fixProjectsPageCarousel();
+            ticks += 1;
+            if (ticks >= 12) clearInterval(guard);
+        }, 1000);
+    }
+
     function setupFormFallbacks() {
         document.querySelectorAll('form[wire\\:submit]').forEach(function (form) {
             if (form.dataset.offlineHandled) return;
@@ -710,6 +847,10 @@
         if (isMapCarouselViewport()) {
             fixMapProjectsCarousel();
         }
+        watchProjectsSlider();
+        if (isProjectsCarouselViewport()) {
+            fixProjectsPageCarousel();
+        }
     });
 
     replaceBrandLogos();
@@ -727,6 +868,8 @@
         scheduleGalleryFixes();
         scheduleMapCarouselFixes();
         watchMapSlider();
+        scheduleProjectsCarouselFixes();
+        watchProjectsSlider();
     });
 
     window.addEventListener('resize', function () {
@@ -738,10 +881,18 @@
                 delete slider.dataset.mapMode;
             }
             fixMapProjectsCarousel();
+
+            var proSlider = document.querySelector('#projects .pro_cards');
+            if (proSlider) {
+                delete proSlider.dataset.proMode;
+                delete proSlider.dataset.proSwipeBound;
+            }
+            fixProjectsPageCarousel();
         }, 200);
     });
 
     scheduleMapCarouselFixes();
+    scheduleProjectsCarouselFixes();
 
     setTimeout(function () {
         ensureVisibility();

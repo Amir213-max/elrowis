@@ -188,6 +188,106 @@ label, nav, footer, header {
     background: rgba(213, 215, 215, 0.92) !important;
 }
 
+/* White text on any section with a background image + overlaid copy */
+.home_hero,
+.home_hero h1,
+.home_hero h2,
+.home_hero h3,
+.home_hero h4,
+.home_hero h5,
+.home_hero h6,
+.home_hero p,
+.home_hero span,
+.home_hero .high,
+.home_hero .gray_color,
+.canvas_content,
+.canvas_content h1,
+.canvas_content h2,
+.canvas_content h3,
+.canvas_content p,
+.hero_wrap:has(> .load_bg),
+.hero_wrap:has(> i.load_bg),
+.hero_wrap:has(> .load_bg) h1,
+.hero_wrap:has(> .load_bg) h2,
+.hero_wrap:has(> .load_bg) h3,
+.hero_wrap:has(> .load_bg) h4,
+.hero_wrap:has(> .load_bg) h5,
+.hero_wrap:has(> .load_bg) h6,
+.hero_wrap:has(> .load_bg) p,
+.hero_wrap:has(> .load_bg) span,
+.hero_wrap:has(> .load_bg) .high,
+.hero_wrap:has(> .load_bg) .gray_color,
+.b_hero:has(.load_bg),
+.b_hero:has(.load_bg) h1,
+.b_hero:has(.load_bg) h2,
+.b_hero:has(.load_bg) h3,
+.b_hero:has(.load_bg) h4,
+.b_hero:has(.load_bg) h5,
+.b_hero:has(.load_bg) h6,
+.b_hero:has(.load_bg) p,
+.b_hero:has(.load_bg) span,
+.b_hero:has(.load_bg) .high,
+.b_hero:has(.load_bg) .gray_color,
+.sus_wrap:has(.load_bg),
+.sus_wrap:has(.load_bg) h1,
+.sus_wrap:has(.load_bg) h2,
+.sus_wrap:has(.load_bg) h3,
+.sus_wrap:has(.load_bg) h4,
+.sus_wrap:has(.load_bg) h5,
+.sus_wrap:has(.load_bg) h6,
+.sus_wrap:has(.load_bg) p,
+.sus_wrap:has(.load_bg) span,
+.sus_wrap:has(.load_bg) .high,
+.sus_wrap:has(.load_bg) .gray_color,
+.grid_col,
+.grid_col_info,
+.grid_col_info h1,
+.grid_col_info h2,
+.grid_col_info h3,
+.grid_col_info h4,
+.grid_col_info h5,
+.grid_col_info h6,
+.grid_col_info p,
+.grid_col_info span,
+.grid_col_info .high,
+.grid_col_info .gray_color,
+.project_cover_set,
+.project_cover_set h1,
+.project_cover_set h2,
+.project_cover_set h3,
+.project_cover_set h4,
+.project_cover_set h5,
+.project_cover_set h6,
+.project_cover_set p,
+.project_cover_set span,
+.project_cover_set .high,
+.project_cover_set .gray_color,
+.n_cover:has(.load_bg) .n_cover_info,
+.n_cover:has(.load_bg) .n_cover_info strong,
+.n_cover:has(.load_bg) .n_cover_info span,
+.team_col:has(.load_bg) .team_info,
+.team_col:has(.load_bg) .team_info h1,
+.team_col:has(.load_bg) .team_info h2,
+.team_col:has(.load_bg) .team_info h3,
+.team_col:has(.load_bg) .team_info h4,
+.team_col:has(.load_bg) .team_info h5,
+.team_col:has(.load_bg) .team_info p,
+.team_col:has(.load_bg) .team_info span,
+.team_col:has(.load_bg) .team_info .gray_color {
+    color: #fff !important;
+}
+
+.home_hero .site_button.outline,
+.canvas_content .site_button.outline,
+.hero_wrap:has(> .load_bg) .site_button.outline,
+.b_hero:has(.load_bg) .site_button.outline,
+.sus_wrap:has(.load_bg) .site_button.outline,
+.grid_col .site_button.outline,
+.project_cover_set .site_button.outline {
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.75) !important;
+}
+
 @media (min-width: 1201px) {
     /* Two columns: map + title on the left, project cards on the right */
     #map .map_hero {
@@ -358,6 +458,10 @@ label, nav, footer, header {
         flex-shrink: 0;
     }
 
+    #map .map_projects_set {
+        touch-action: pan-x pinch-zoom;
+    }
+
     #map .map_projects,
     #map .map_projects.map-swipe-native {
         width: 100% !important;
@@ -373,9 +477,9 @@ label, nav, footer, header {
         overflow-x: auto !important;
         overflow-y: hidden !important;
         scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
+        scroll-behavior: auto;
         -webkit-overflow-scrolling: touch;
-        touch-action: pan-x;
+        touch-action: pan-x pinch-zoom;
         overscroll-behavior-x: contain;
         gap: 0 !important;
         height: auto !important;
@@ -396,7 +500,7 @@ label, nav, footer, header {
         box-sizing: border-box;
         margin: 0 !important;
         padding: 0 !important;
-        scroll-snap-align: start;
+        scroll-snap-align: center;
         scroll-snap-stop: always;
     }
 
@@ -459,7 +563,7 @@ label, nav, footer, header {
         overflow: visible !important;
         height: auto !important;
         min-height: 0 !important;
-        touch-action: pan-x;
+        touch-action: pan-x pinch-zoom;
         padding: 1.5em !important;
         gap: 1.1em !important;
     }
@@ -736,6 +840,51 @@ html[dir="rtl"] .contact_map_wrap {
 
 #projects .projects .arrows_set {
     color: #003d53 !important;
+}
+
+/* Our Projects page: native horizontal swipe on mobile/tablet */
+@media (max-width: 1200px) {
+    #projects .pro_cards_set,
+    #projects .pro_cards {
+        touch-action: pan-x pinch-zoom;
+    }
+
+    #projects .pro_cards.pro-swipe-native {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: auto;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x pinch-zoom;
+        overscroll-behavior-x: contain;
+        direction: ltr !important;
+        gap: 1em !important;
+        width: 100% !important;
+        padding: 0 1em 1em !important;
+        box-sizing: border-box;
+        scrollbar-width: none;
+    }
+
+    #projects .pro_cards.pro-swipe-native::-webkit-scrollbar {
+        display: none;
+    }
+
+    #projects .pro_cards.pro-swipe-native .pro_card {
+        flex: 0 0 calc(100% - 2em) !important;
+        width: calc(100% - 2em) !important;
+        max-width: calc(100% - 2em) !important;
+        min-width: calc(100% - 2em) !important;
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        margin: 0 !important;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
 }
 
 /* Navbar brand icon (hex logo, navy) */
