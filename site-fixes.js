@@ -185,22 +185,21 @@
 
     function replaceBrandLogos() {
         var base = window.__ASSET_BASE__ || './';
-        var logoSrc = base + 'images/alruwais-logo-transparent.png';
+        var logoSrc = base + 'images/nav-logo-icon.png?v=2';
 
         document.querySelectorAll('.main_logo').forEach(function (link) {
-            if (link.dataset.brandLogoDone) return;
-            link.dataset.brandLogoDone = '1';
-
             var svg = link.querySelector('svg');
             if (svg) svg.remove();
 
-            if (!link.querySelector('img.brand-logo-img')) {
-                var img = document.createElement('img');
+            var img = link.querySelector('img.brand-logo-img');
+            if (!img) {
+                img = document.createElement('img');
                 img.className = 'brand-logo-img';
-                img.src = logoSrc;
                 img.alt = link.getAttribute('aria-label') || 'Alruwais';
                 link.appendChild(img);
             }
+            img.src = logoSrc;
+            link.dataset.brandLogoDone = '1';
         });
     }
 
