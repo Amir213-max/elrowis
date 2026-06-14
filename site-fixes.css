@@ -939,13 +939,14 @@ html[dir="rtl"] .contact_map_wrap {
     }
 }
 
-/* Navbar brand icon (hex logo, navy) */
+/* Navbar brand logo (site wordmark, no hex icon) */
 .main_logo {
     display: block !important;
-    height: 2.35em !important;
-    width: 2.7em !important;
-    min-width: 2.7em !important;
-    flex: 2.7em 0 0 !important;
+    height: 2.2em !important;
+    width: auto !important;
+    min-width: 0 !important;
+    flex: 0 0 auto !important;
+    max-width: 8.5em !important;
     position: relative !important;
     z-index: 10 !important;
     background: none !important;
@@ -953,20 +954,36 @@ html[dir="rtl"] .contact_map_wrap {
 }
 
 .main_logo svg {
+    display: none !important;
+}
+
+.main_logo img.brand-logo-img {
     display: block !important;
-    opacity: 1 !important;
-    position: static !important;
-    width: auto !important;
     height: 100% !important;
-    overflow: visible !important;
-    pointer-events: auto !important;
+    width: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
 }
 
-.main_logo svg path {
-    fill: #003d53 !important;
+/* Hide careers nav dropdown only (keep other menu dropdowns) */
+header nav > ul > li:has(> a[href*="careers.html"]) > svg,
+header nav > ul > li:has(> a[href*="careers.html"]) .menu_sub {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 
-/* Nav pill covers full bar including logo icon */
+/* About Us: remove Executive Leaders tab/panel */
+#our-leaders .tabs_nav_set {
+    display: none !important;
+}
+
+#our-leaders #panel2 {
+    display: none !important;
+}
+
+/* Nav pill covers full bar including logo */
 html[dir="rtl"] .header_set > i,
 html[dir="ltr"] .header_set > i {
     left: 0 !important;
@@ -1003,16 +1020,18 @@ body:not(.progress) .contact_button svg {
 @media (min-width: 601px) {
     .main_logo {
         height: 2.35em !important;
-        width: 2.7em !important;
-        min-width: 2.7em !important;
-        flex: 2.7em 0 0 !important;
+        max-width: 9em !important;
     }
 
-    /* Collapsed navbar when scrolled: compact pill (+ icon + hex logo) */
+    /* Collapsed navbar when scrolled: + beside logo, no overlap */
     header.scrolled:not(.forceOpened) .header_set {
-        min-width: 8em;
-        padding: 0.5em 0.65em;
-        gap: 0;
+        min-width: auto !important;
+        width: max-content !important;
+        max-width: calc(100vw - 3em);
+        padding: 0.45em 0.6em !important;
+        gap: 0.5em !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
         transition: min-width 0.85s cubic-bezier(0.4, 0, 0.2, 1),
             padding 0.85s cubic-bezier(0.4, 0, 0.2, 1),
             gap 0.85s cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -1025,6 +1044,46 @@ body:not(.progress) .contact_button svg {
         width: 100% !important;
     }
 
+    header.scrolled:not(.forceOpened) .header_set .expand {
+        position: relative !important;
+        top: auto !important;
+        bottom: auto !important;
+        right: auto !important;
+        left: auto !important;
+        margin: 0 !important;
+        transform: none !important;
+        opacity: 1 !important;
+        flex: 0 0 2.45em !important;
+        width: 2.45em !important;
+        height: 2.45em !important;
+        z-index: 2 !important;
+        background: #003d53 !important;
+        color: #fff !important;
+    }
+
+    html[dir="rtl"] header.scrolled:not(.forceOpened) .header_set .main_logo {
+        order: 0;
+    }
+
+    html[dir="rtl"] header.scrolled:not(.forceOpened) .header_set .expand {
+        order: 1;
+    }
+
+    html[dir="ltr"] header.scrolled:not(.forceOpened) .header_set .main_logo {
+        order: 0;
+    }
+
+    html[dir="ltr"] header.scrolled:not(.forceOpened) .header_set .expand {
+        order: 1;
+    }
+
+    header.scrolled:not(.forceOpened) .main_logo {
+        height: 2em !important;
+        max-width: 7em !important;
+        flex: 0 0 auto !important;
+        z-index: 2 !important;
+    }
+
     header.scrolled:not(.forceOpened) nav {
         position: absolute !important;
         max-width: 0 !important;
@@ -1034,15 +1093,24 @@ body:not(.progress) .contact_button svg {
         visibility: visible !important;
     }
 
-    header.scrolled:not(.forceOpened) .header_set .expand {
-        opacity: 1 !important;
-        transform: translateX(0) !important;
-        background: #003d53 !important;
-        color: #fff !important;
-    }
-
     header.scrolled.forceOpened .header_set {
         min-width: 0;
+    }
+
+    header.scrolled.forceOpened .header_set .expand {
+        position: absolute !important;
+    }
+
+    html[dir="rtl"] header.scrolled.forceOpened .header_set .expand {
+        right: -0.4em !important;
+        margin-right: 5em !important;
+        transform: translateX(0) !important;
+    }
+
+    html[dir="ltr"] header.scrolled.forceOpened .header_set .expand {
+        left: -0.4em !important;
+        margin-left: 5em !important;
+        transform: translateX(0) !important;
     }
 
     header.scrolled.forceOpened nav {
@@ -1056,10 +1124,9 @@ body:not(.progress) .contact_button svg {
 
 @media (max-width: 600px) {
     .main_logo {
-        height: 3em !important;
-        width: 3em !important;
-        min-width: 3em !important;
-        flex-basis: 3em !important;
+        height: 2.15em !important;
+        max-width: 7.5em !important;
+        flex-basis: auto !important;
     }
 }
 

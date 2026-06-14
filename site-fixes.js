@@ -184,8 +184,23 @@
     }
 
     function replaceBrandLogos() {
-        document.querySelectorAll('.main_logo svg path').forEach(function (path) {
-            path.setAttribute('fill', '#003d53');
+        var base = window.__ASSET_BASE__ || './';
+        var logoSrc = base + 'images/alruwais-logo-transparent.png';
+
+        document.querySelectorAll('.main_logo').forEach(function (link) {
+            if (link.dataset.brandLogoDone) return;
+            link.dataset.brandLogoDone = '1';
+
+            var svg = link.querySelector('svg');
+            if (svg) svg.remove();
+
+            if (!link.querySelector('img.brand-logo-img')) {
+                var img = document.createElement('img');
+                img.className = 'brand-logo-img';
+                img.src = logoSrc;
+                img.alt = link.getAttribute('aria-label') || 'Alruwais';
+                link.appendChild(img);
+            }
         });
     }
 
