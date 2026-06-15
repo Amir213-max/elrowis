@@ -867,6 +867,17 @@
         });
     }
 
+    function initHomeHeroVideo() {
+        var heroVideo = document.querySelector('#homeHero .canvas_wrap video');
+        if (!heroVideo) return;
+        heroVideo.muted = true;
+        heroVideo.setAttribute('playsinline', '');
+        var playPromise = heroVideo.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(function () {});
+        }
+    }
+
     fixStoragePaths();
     loadLazyImages();
     ensureVisibility();
@@ -879,6 +890,7 @@
         setupFormFallbacks();
         addOfflineNotices();
         updateBrandMeta();
+        initHomeHeroVideo();
         watchMapSlider();
         reorderMapSection();
         if (isMapCarouselViewport()) {
@@ -901,6 +913,7 @@
         fallbackBrokenImages();
         replaceBrandLogos();
         updateBrandMeta();
+        initHomeHeroVideo();
         initGallerySlider();
         scheduleGalleryFixes();
         scheduleMapCarouselFixes();
