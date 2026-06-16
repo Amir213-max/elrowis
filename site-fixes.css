@@ -24,12 +24,6 @@ label, nav, footer, header {
     font-family: 'Cairo', sans-serif !important;
 }
 
-.home_hero .hero_slides,
-.home_hero .canvas_content {
-    display: none !important;
-    visibility: hidden !important;
-}
-
 /* Homepage hero video — same full-viewport cover behavior as original */
 #homeHero.home_hero {
     position: relative;
@@ -64,6 +58,15 @@ label, nav, footer, header {
     object-position: center center;
     will-change: transform;
     pointer-events: none;
+}
+
+#homeHero.home_hero .hero_slides {
+    z-index: 2 !important;
+    pointer-events: none;
+}
+
+#homeHero.home_hero .canvas_content {
+    transition: opacity 0.5s ease;
 }
 
 /* Legacy hero rules (other pages) */
@@ -817,6 +820,11 @@ html[dir="rtl"] #map .map_head_set .site_button {
 /* Map project cards - ensure images show */
 .map_card .load_bg {
     min-height: 10em;
+}
+
+/* Homepage map slider: temporarily hide project location + divider lines */
+#map .map_card_info {
+    display: none !important;
 }
 
 /* Fix missing favicon flash */

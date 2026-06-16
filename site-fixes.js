@@ -868,11 +868,16 @@
     }
 
     function initHomeHeroVideo() {
-        var heroVideo = document.querySelector('#homeHero .canvas_wrap video');
-        if (!heroVideo) return;
-        heroVideo.muted = true;
-        heroVideo.setAttribute('playsinline', '');
-        var playPromise = heroVideo.play();
+        var heroVideoEl = document.querySelector('#homeHero .canvas_wrap video');
+        if (!heroVideoEl) return;
+        heroVideoEl.muted = true;
+        heroVideoEl.setAttribute('playsinline', '');
+        var slides = document.querySelectorAll('#homeHero .canvas_content');
+        if (slides.length && window.gsapWithCSS) {
+            window.gsapWithCSS.set(slides, { autoAlpha: 0 });
+            window.gsapWithCSS.set(slides[0], { autoAlpha: 1 });
+        }
+        var playPromise = heroVideoEl.play();
         if (playPromise && typeof playPromise.catch === 'function') {
             playPromise.catch(function () {});
         }

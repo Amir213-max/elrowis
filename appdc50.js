@@ -76571,8 +76571,14 @@ function heroVideo() {
     });
     const updateContent = () => {
       const currentTime = canvas.currentTime;
+      const duration = canvas.duration;
+      const isAlruwaisHero = (canvas.currentSrc || canvas.src || '').indexOf('alruwais-hero') !== -1;
       let activeIndex = 0;
-      if (currentTime <= 5.5) {
+      if (isAlruwaisHero && duration && isFinite(duration)) {
+        const segment = duration / 4;
+        const loopTime = currentTime % duration;
+        activeIndex = Math.min(3, Math.floor(loopTime / segment));
+      } else if (currentTime <= 5.5) {
         activeIndex = 0;
       } else if (currentTime > 5.5 && currentTime <= 9.5) {
         activeIndex = 1;
