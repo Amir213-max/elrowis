@@ -318,16 +318,7 @@ label, nav, footer, header {
 .project_cover_set .gray_color,
 .n_cover:has(.load_bg) .n_cover_info,
 .n_cover:has(.load_bg) .n_cover_info strong,
-.n_cover:has(.load_bg) .n_cover_info span,
-.team_col:has(.load_bg) .team_info,
-.team_col:has(.load_bg) .team_info h1,
-.team_col:has(.load_bg) .team_info h2,
-.team_col:has(.load_bg) .team_info h3,
-.team_col:has(.load_bg) .team_info h4,
-.team_col:has(.load_bg) .team_info h5,
-.team_col:has(.load_bg) .team_info p,
-.team_col:has(.load_bg) .team_info span,
-.team_col:has(.load_bg) .team_info .gray_color {
+.n_cover:has(.load_bg) .n_cover_info span {
     color: #fff !important;
 }
 
@@ -1042,6 +1033,16 @@ header nav > ul > li:has(> a[href*="careers.html"]) .menu_sub {
 /* About Us: remove Executive Leaders tab/panel */
 #our-leaders .tabs_nav_set {
     display: none !important;
+}
+
+/* Leaders cards: name + title on hover panel (white bar) */
+#our-leaders .team_col .team_info strong,
+#our-leaders .team_col .team_info p {
+    color: #003d53 !important;
+}
+
+#our-leaders .team_col .team_info .gray_color.high {
+    color: #5f6b73 !important;
 }
 
 #our-leaders #panel2 {
