@@ -41,7 +41,14 @@ LEADERS = [
     ),
     (
         "team-5",
-        "leader-05.jpg",
+        "leader-abdulmajid.jpg",
+        "الصورة 5",
+        "عبدالمجيد البدراني",
+        "مدير إدارة الموارد البشرية",
+    ),
+    (
+        "team-6",
+        "leader-06.jpg",
         "الصورة 6",
         "عبدالله مصطفى",
         "المدير المالي",
@@ -53,7 +60,8 @@ SRC_MAP = {
     "leader-02.jpg": "الصورة 2",
     "leader-03.jpg": "الثالث",
     "leader-04.jpg": "الرابع",
-    "leader-05.jpg": "الصورة 6",
+    "leader-abdulmajid.jpg": "الصورة 5",
+    "leader-06.jpg": "الصورة 6",
 }
 
 
@@ -63,6 +71,7 @@ def find_src_file(key: str) -> Path:
     "الصورة 2": lambda n: "الصورة 2" in n and "وائل" in n,
     "الثالث": lambda n: "الثالث" in n or "حلمي" in n,
     "الرابع": lambda n: "الرابع" in n or "جمال" in n,
+    "الصورة 5": lambda n: "عبدالمجيد" in n,
     "الصورة 6": lambda n: "الصورة 6" in n and "مصطفى" in n,
   }
   test = rules.get(key)

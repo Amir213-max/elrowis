@@ -21,11 +21,14 @@
             return src;
         }
         var base = window.__ASSET_BASE__ || './';
-        if (src.charAt(0) === '/') {
-            src = src.replace(/^\//, '');
+        var path = src.split('?')[0];
+        var query = src.indexOf('?') !== -1 ? src.slice(src.indexOf('?')) : '';
+        if (path.charAt(0) === '/') {
+            path = path.replace(/^\//, '');
         }
-        if (src.startsWith('storage/') || src.startsWith('images/')) {
-            return base + src;
+        path = path.replace(/^(\.\.\/)+/, '');
+        if (path.startsWith('storage/') || path.startsWith('images/')) {
+            return base + path + query;
         }
         return src;
     }
@@ -267,8 +270,22 @@
         document.querySelectorAll('.load_bg[data-src]').forEach(function (el) {
             var src = el.getAttribute('data-src') || el.dataset.src;
             if (!src) return;
-            if (!el.style.backgroundImage || el.style.backgroundImage === 'url()') {
-                el.style.backgroundImage = 'url(' + src + ')';
+            src = resolveStorageUrl(src);
+            el.setAttribute('data-src', src);
+            el.style.backgroundImage = 'url("' + src + '")';
+        });
+    }
+
+    function patchLeaderImages() {
+        document.querySelectorAll('#our-leaders .load_bg, #our-leaders .load_img').forEach(function (el) {
+            var src = el.getAttribute('data-src');
+            if (!src) return;
+            src = resolveStorageUrl(src);
+            el.setAttribute('data-src', src);
+            if (el.classList.contains('load_bg')) {
+                el.style.backgroundImage = 'url("' + src + '")';
+            } else if (el.classList.contains('load_img')) {
+                el.setAttribute('src', src);
             }
         });
     }
@@ -890,6 +907,7 @@
         loadLazyImages();
         ensureVisibility();
         patchBackgroundImages();
+        patchLeaderImages();
         setupFormFallbacks();
         addOfflineNotices();
         updateBrandMeta();
@@ -913,6 +931,7 @@
         loadLazyImages();
         ensureVisibility();
         patchBackgroundImages();
+        patchLeaderImages();
         fallbackBrokenImages();
         replaceBrandLogos();
         updateBrandMeta();
@@ -923,6 +942,8 @@
         watchMapSlider();
         scheduleProjectsCarouselFixes();
         watchProjectsSlider();
+        setTimeout(patchLeaderImages, 1200);
+        setTimeout(patchLeaderImages, 2500);
     });
 
     window.addEventListener('resize', function () {
