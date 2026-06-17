@@ -24,7 +24,7 @@
         if (src.charAt(0) === '/') {
             src = src.replace(/^\//, '');
         }
-        if (src.startsWith('storage/')) {
+        if (src.startsWith('storage/') || src.startsWith('images/')) {
             return base + src;
         }
         return src;
@@ -40,6 +40,9 @@
         var clean = src.replace(/^(\.\.\/)+/, '').replace(/^\//, '');
         if (clean.startsWith('storage/')) {
             return REMOTE_BASE + clean;
+        }
+        if (clean.startsWith('images/')) {
+            return (window.__ASSET_BASE__ || './') + clean;
         }
         return src;
     }
