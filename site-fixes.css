@@ -1049,6 +1049,41 @@ header nav > ul > li:has(> a[href*="careers.html"]) .menu_sub {
     display: none !important;
 }
 
+/* Operations sector — leaders-style image slider with hover title */
+#operations .operations_sector_slider {
+    gap: 3em;
+    background: var(--brand-surface) !important;
+}
+
+#operations .operations_sector_intro {
+    max-width: 42em;
+    line-height: 1.7;
+    margin-top: 0.75em;
+}
+
+#operations .operations_sector_slider .section_title h2 {
+    color: var(--brand-primary) !important;
+}
+
+#operations .operations_sector_slider .team_col {
+    height: 28em;
+}
+
+#operations .operations_sector_slider .team_col .team_info strong,
+#operations .operations_sector_slider .team_col .team_info p {
+    color: #003d53 !important;
+}
+
+#operations .operations_sector_slider .team_col .team_info .gray_color.high {
+    color: #5f6b73 !important;
+}
+
+@media (max-width: 600px) {
+    #operations .operations_sector_slider .team_col {
+        height: 22em;
+    }
+}
+
 /* Nav pill covers full bar including logo */
 html[dir="rtl"] .header_set > i,
 html[dir="ltr"] .header_set > i {
@@ -1366,4 +1401,20 @@ body:not(.progress) .contact_button svg {
 
 .page-sustainability .sus_col:not(.active) {
     border-color: rgba(255, 255, 255, 0.55) !important;
+}
+
+/* About Us — mission/vision image uses logo inner cutout shape */
+#mission-vision .m_mask svg path {
+    fill: var(--brand-surface) !important;
+}
+
+#mission-vision .m_mask_cover {
+    top: 1.5em;
+    right: 1.5em;
+    bottom: 1.5em;
+    left: 1.5em;
+}
+
+#mission-vision .m_mask_cover .load_bg {
+    background-position: center 30% !important;
 }

@@ -277,7 +277,7 @@
     }
 
     function patchLeaderImages() {
-        document.querySelectorAll('#our-leaders .load_bg, #our-leaders .load_img').forEach(function (el) {
+        document.querySelectorAll('#our-leaders .load_bg, #our-leaders .load_img, #operations .operations_sector_slider .load_bg').forEach(function (el) {
             var src = el.getAttribute('data-src');
             if (!src) return;
             src = resolveStorageUrl(src);
