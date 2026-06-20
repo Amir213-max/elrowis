@@ -6,7 +6,18 @@
     --brand-surface: #d5d7d7;
 }
 
-/* Slanted accent behind section headings */
+/* Ra (ر) accent behind section headings — replaces diagonal bar */
+.section_shape {
+    width: 8.75em !important;
+    top: -0.35em !important;
+}
+
+.section_shape svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 .section_shape path {
     fill: var(--brand-accent) !important;
 }
@@ -1403,18 +1414,35 @@ body:not(.progress) .contact_button svg {
     border-color: rgba(255, 255, 255, 0.55) !important;
 }
 
-/* About Us — mission/vision image uses logo inner cutout shape */
+/* About Us — mission/vision image uses logo Ra (ر) inner cutout shape */
+#mission-vision .m_mask {
+    transform: scale(1.05);
+    transform-origin: center center;
+}
+
 #mission-vision .m_mask svg path {
     fill: var(--brand-surface) !important;
 }
 
+#mission-vision .m_mask svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 #mission-vision .m_mask_cover {
-    top: 1.5em;
-    right: 1.5em;
-    bottom: 1.5em;
-    left: 1.5em;
+    top: 0.75em;
+    right: 0.75em;
+    bottom: 0.75em;
+    left: 0.9em;
 }
 
 #mission-vision .m_mask_cover .load_bg {
-    background-position: center 30% !important;
+    background-position: center 32% !important;
+}
+
+@media (max-width: 600px) {
+    #mission-vision .m_mask {
+        transform: scale(1.95);
+    }
 }
