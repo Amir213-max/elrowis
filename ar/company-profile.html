@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="الملف التعريفي لشركة الرويس للمقاولات">
+    <title>الملف التعريفي - الرويس</title>
+    <link rel="icon" type="image/png" href="../images/favicon-alruwais-32x32.png?v=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            min-height: 100%;
+            font-family: "Cairo", sans-serif;
+            background: #eef1f2;
+            color: #1b1c1c;
+        }
+
+        .profile-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-bar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            padding: 0.85rem 1.25rem;
+            background: #003d53;
+            color: #fff;
+            box-shadow: 0 2px 12px rgba(0, 61, 83, 0.18);
+        }
+
+        .profile-bar a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .profile-bar a:hover { text-decoration: underline; }
+
+        .profile-bar__title {
+            flex: 1;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .profile-bar__pages {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            min-width: 6rem;
+            text-align: left;
+        }
+
+        .profile-status,
+        .profile-error {
+            margin: 2rem auto;
+            padding: 1rem 1.25rem;
+            max-width: 720px;
+            text-align: center;
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        .profile-error { color: #b42318; }
+
+        .profile-pages {
+            flex: 1;
+            width: 100%;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 1.25rem 1rem 2rem;
+        }
+
+        .profile-page-sheet {
+            margin: 0 auto 1.25rem;
+            background: #fff;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+            border-radius: 6px;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .profile-page-sheet img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-page">
+        <header class="profile-bar">
+            <a href="media-room.html#media-kit">← العودة للمركز الإعلامي</a>
+            <div class="profile-bar__title">الملف التعريفي — شركة الرويس للمقاولات</div>
+            <div class="profile-bar__pages" id="page-indicator" hidden></div>
+        </header>
+
+        <p class="profile-status" id="profile-status">جاري تحميل الملف التعريفي…</p>
+        <p class="profile-error" id="profile-error" hidden></p>
+
+        <div class="profile-pages" id="profile-pages" hidden></div>
+    </div>
+
+    <script>
+        (function () {
+            var MANIFEST_URL = "../images/company-profile/manifest.json";
+            var statusEl = document.getElementById("profile-status");
+            var errorEl = document.getElementById("profile-error");
+            var pagesEl = document.getElementById("profile-pages");
+            var indicatorEl = document.getElementById("page-indicator");
+
+            function showError(message) {
+                statusEl.hidden = true;
+                pagesEl.hidden = true;
+                indicatorEl.hidden = true;
+                errorEl.hidden = false;
+                errorEl.textContent = message;
+            }
+
+            function pageUrl(pattern, index) {
+                return pattern.replace("{num}", String(index).padStart(2, "0"));
+            }
+
+            fetch(MANIFEST_URL)
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error("manifest");
+                    }
+                    return response.json();
+                })
+                .then(function (manifest) {
+                    var total = manifest.pages || 0;
+                    var pattern = manifest.pattern;
+
+                    if (!total || !pattern) {
+                        throw new Error("invalid manifest");
+                    }
+
+                    statusEl.hidden = true;
+                    pagesEl.hidden = false;
+                    indicatorEl.hidden = false;
+                    indicatorEl.textContent = total + " صفحة";
+
+                    for (var i = 1; i <= total; i++) {
+                        var sheet = document.createElement("div");
+                        sheet.className = "profile-page-sheet";
+
+                        var img = document.createElement("img");
+                        img.src = pageUrl(pattern, i);
+                        img.alt = "الملف التعريفي — صفحة " + i;
+                        img.loading = i <= 2 ? "eager" : "lazy";
+                        img.decoding = "async";
+
+                        sheet.appendChild(img);
+                        pagesEl.appendChild(sheet);
+                    }
+                })
+                .catch(function () {
+                    showError("تعذّر عرض الملف التعريفي. يرجى المحاولة مرة أخرى لاحقًا.");
+                });
+        })();
+    </script>
+</body>
+</html>

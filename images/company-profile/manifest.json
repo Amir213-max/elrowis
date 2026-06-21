@@ -1,0 +1,4 @@
+{
+  "pages": 19,
+  "pattern": "../images/company-profile/page-{num}.jpg"
+}
