@@ -898,6 +898,33 @@
         }
     }
 
+    function fixOperationsSectorSlider() {
+        var panel = document.querySelector('#operations .operations_sector_slider .tab_panel');
+        if (!panel || !window.Flickity) return false;
+
+        var flkty = window.Flickity.data(panel);
+        if (!flkty) return false;
+
+        flkty.options.cellAlign = 'center';
+        flkty.options.contain = true;
+        flkty.options.percentPosition = true;
+        panel.classList.remove('flickity-rtl');
+        flkty.options.rightToLeft = false;
+        flkty.resize();
+        if (typeof flkty.reposition === 'function') {
+            flkty.reposition();
+        }
+        flkty.select(flkty.selectedIndex || 0, false, true);
+        return true;
+    }
+
+    function scheduleOperationsSliderFixes() {
+        var delays = [0, 400, 1000, 2000, 3500];
+        delays.forEach(function (ms) {
+            setTimeout(fixOperationsSectorSlider, ms);
+        });
+    }
+
     fixStoragePaths();
     loadLazyImages();
     ensureVisibility();
@@ -921,6 +948,7 @@
         if (isProjectsCarouselViewport()) {
             fixProjectsPageCarousel();
         }
+        scheduleOperationsSliderFixes();
     });
 
     replaceBrandLogos();
@@ -942,6 +970,7 @@
         watchMapSlider();
         scheduleProjectsCarouselFixes();
         watchProjectsSlider();
+        scheduleOperationsSliderFixes();
         setTimeout(patchLeaderImages, 1200);
         setTimeout(patchLeaderImages, 2500);
     });
@@ -968,6 +997,7 @@
             }
             fixProjectsPageCarousel();
         }, 200);
+        fixOperationsSectorSlider();
     });
 
     scheduleMapCarouselFixes();

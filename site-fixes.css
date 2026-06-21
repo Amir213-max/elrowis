@@ -1080,6 +1080,23 @@ header nav > ul > li:has(> a[href*="careers.html"]) .menu_sub {
     height: 28em;
 }
 
+#operations .operations_sector_slider .section_body {
+    display: flex;
+    justify-content: center;
+}
+
+#operations .operations_sector_slider .tab_panel {
+    width: 100%;
+    max-width: 72em;
+    margin-inline: auto;
+}
+
+#operations .operations_sector_slider .team_col .load_bg,
+#operations .operations_sector_slider .team_col i.cover {
+    background-position: center center !important;
+    background-size: cover !important;
+}
+
 #operations .operations_sector_slider .team_col .team_info strong,
 #operations .operations_sector_slider .team_col .team_info p {
     color: #003d53 !important;
