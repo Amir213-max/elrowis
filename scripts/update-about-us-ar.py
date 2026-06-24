@@ -37,21 +37,33 @@ LEADERS = [
 SUBSIDIARIES = [
     (
         "partner-1",
-        "images/about/subsidiary-rawad.png",
+        "../images/about/subsidiary-rawad.jpg",
         "رواد الإنشاءات",
         "شركة تابعة لمجموعة الرويس متخصصة في الإنشاءات الحديثة ودعم تنفيذ المشاريع الإنشائية.",
     ),
     (
         "partner-2",
-        "images/about/subsidiary-mazen.png",
+        "../images/about/subsidiary-mazen.jpg",
         "مزن نجد",
         "الذراع التشغيلية لمجموعة الرويس في إدارة المرافق والتشغيل والصيانة.",
     ),
     (
         "partner-3",
-        "images/about/subsidiary-asr.png",
+        "../images/about/subsidiary-asr.jpg",
         "العصر الصناعي",
         "مصنع صناعي يدعم الشركات والقطاع الحكومي في صناعات الألمنيوم والأخشاب.",
+    ),
+    (
+        "partner-4",
+        "../images/about/subsidiary-smart-valve.jpg",
+        "سمارت فالف",
+        "شركة متخصصة في حلول الصمامات والمنتجات الهندسية.",
+    ),
+    (
+        "partner-5",
+        "../images/about/subsidiary-glorias-sweets.jpg",
+        "جلورياس سويتس",
+        "علامة تجارية في صناعة الحلويات والمنتجات الغذائية.",
     ),
 ]
 
@@ -257,7 +269,7 @@ def main():
     content = replace_between(
         content,
         '<div class="sidebar_set" data-id="team-2">',
-        '<div class="sidebar_set" data-id="partner-5">',
+        '<div class="sidebar_set" data-id="partner-1">',
         team_sidebars + "\n    ",
     )
 
@@ -327,9 +339,9 @@ def main():
     )
     content = replace_between(
         content,
-        '<div class="sidebar_set" data-id="partner-5">',
-        "<!--[if ENDBLOCK]><![endif]-->",
-        partner_sidebars + "    ",
+        '<div class="sidebar_set" data-id="partner-1">',
+        '<!-- Bar End -->\n        <!--[if ENDBLOCK]><![endif]-->    <!--[if ENDBLOCK]><![endif]-->',
+        partner_sidebars,
     )
 
     HTML.write_text(content, encoding="utf-8")
