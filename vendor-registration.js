@@ -119,12 +119,60 @@
     }
 
     if (form) {
+        var nextInput = document.getElementById('formsubmit-next');
+        var successNotice = document.getElementById('eoi-success-notice');
+        var submitBtn = document.getElementById('eoi-submit-btn');
+
+        if (nextInput) {
+            nextInput.value =
+                window.location.origin +
+                window.location.pathname +
+                '?sent=1';
+        }
+
+        if (window.location.search.indexOf('sent=1') !== -1 && successNotice) {
+            successNotice.classList.add('is-visible');
+            if (window.history.replaceState) {
+                window.history.replaceState(null, '', window.location.pathname);
+            }
+        }
+
         form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            var msg = document.documentElement.lang === 'ar'
-                ? 'تم استلام طلبك. سيتواصل معك فريق نسما وشركاهم قريباً.'
-                : 'Your submission has been received. The Nesma & Partners team will contact you shortly.';
-            alert(msg);
+            var existing = form.querySelector('input[name="الخدمات"]');
+            if (existing) existing.remove();
+
+            var services = getSelectedServices();
+            if (!services.length) {
+                e.preventDefault();
+                alert(document.documentElement.lang === 'ar'
+                    ? 'يرجى اختيار خدمة واحدة على الأقل.'
+                    : 'Please select at least one service.');
+                return;
+            }
+
+            var hidden = document.createElement('input');
+            hidden.type = 'hidden';
+            hidden.name = 'الخدمات';
+            hidden.value = services.map(function (s) { return s.label; }).join('، ');
+            form.appendChild(hidden);
+
+            if (yearsDisplay && yearsDisplay.textContent !== 'N/A') {
+                var yearsHidden = form.querySelector('input[name="سنوات التأسيس"]');
+                if (!yearsHidden) {
+                    yearsHidden = document.createElement('input');
+                    yearsHidden.type = 'hidden';
+                    yearsHidden.name = 'سنوات التأسيس';
+                    form.appendChild(yearsHidden);
+                }
+                yearsHidden.value = yearsDisplay.textContent;
+            }
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = document.documentElement.lang === 'ar'
+                    ? 'جاري الإرسال…'
+                    : 'Sending…';
+            }
         });
     }
 })();

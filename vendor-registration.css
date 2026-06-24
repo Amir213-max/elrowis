@@ -476,3 +476,18 @@ html[dir="rtl"] .eoi-counter {
         grid-template-columns: 1fr;
     }
 }
+
+.eoi-success-notice {
+    display: none;
+    margin-top: 1.25em;
+    padding: 1em 1.25em;
+    border-radius: 8px;
+    background: #e8f5ee;
+    color: #003d53;
+    text-align: center;
+    font-weight: 600;
+}
+
+.eoi-success-notice.is-visible {
+    display: block;
+}

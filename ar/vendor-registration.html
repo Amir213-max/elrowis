@@ -43,11 +43,11 @@
     <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
     <script defer src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
     <script defer src="../site-fixes.js?v=37"></script>
-    <script defer src="../vendor-registration.js?v=1"></script>
+    <script defer src="../vendor-registration.js?v=3"></script>
     <script defer src="../appdc50.js?v=0.824"></script>
     <link href="../maindc50.css?v=0.824" rel="stylesheet">
     <link href="../site-fixes.css?v=55" rel="stylesheet">
-    <link href="../vendor-registration.css?v=1" rel="stylesheet">
+    <link href="../vendor-registration.css?v=3" rel="stylesheet">
     <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
     <style>
 
@@ -328,12 +328,6 @@
                                                 </a>
                                             </li>
                                                                                                                                 <li class="has_indent">
-                                                <a href="our-business.html#resources"
-                                                                                                      >
-                                                    مشاريع تهيئة بيئة العمل
-                                                </a>
-                                            </li>
-                                                                                                                                <li class="has_indent">
                                                 <a href="our-business.html#infrastructure"
                                                                                                       >
                                                     بنية تحتية
@@ -512,7 +506,11 @@
         </div>
 
         <div class="eoi-card">
-            <form id="eoi-form" novalidate>
+            <form id="eoi-form" action="https://formsubmit.co/info@alruwais.com.sa" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_subject" value="طلب تسجيل مورد - نموذج التعبير عن الاهتمام" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_next" id="formsubmit-next" value="" />
                 <section class="eoi-section">
                     <div class="eoi-section__head"><svg class="eoi-section__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-4h6v4M9 9h.01M15 9h.01M9 13h.01M15 13h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><h2 class="eoi-section__title">تفاصيل الشركة</h2></div>
                     <div class="eoi-grid eoi-grid--2">
@@ -615,7 +613,7 @@
                             <div class="eoi-upload__zone">
                                 <button type="button" class="eoi-upload__btn" id="eoi-upload-profile-btn">رفع</button>
                                 <div class="eoi-upload__drop" id="eoi-profile-drop">اسحب الملف أو الصقه هنا</div>
-                                <input type="file" id="eoi-company-profile" accept=".pdf,application/pdf">
+                                <input type="file" id="eoi-company-profile" name="ملف الشركة" accept=".pdf,application/pdf" required>
                             </div>
                             <span class="eoi-upload__note">ارفع ملف بصيغة .pdf حتى 20 ميجابايت</span>
                         </div>
@@ -624,7 +622,7 @@
                             <div class="eoi-upload__zone">
                                 <button type="button" class="eoi-upload__btn" id="eoi-upload-cr-btn">رفع</button>
                                 <div class="eoi-upload__drop" id="eoi-cr-drop">اسحب الملف أو الصقه هنا</div>
-                                <input type="file" id="eoi-commercial-reg" accept=".pdf,application/pdf">
+                                <input type="file" id="eoi-commercial-reg" name="السجل التجاري" accept=".pdf,application/pdf" required>
                             </div>
                             <span class="eoi-upload__note">ارفع ملف بصيغة .pdf حتى 20 ميجابايت</span>
                         </div>
@@ -659,8 +657,9 @@
                     </div>
                 </section>
 
-                <p class="eoi-footer-note">في حال وجود أي مشكلة أثناء التسجيل، يرجى التواصل على <a href="mailto:registration.np@nesmapartners.com">registration.np@nesmapartners.com</a></p>
-                <div class="eoi-submit-wrap"><button type="submit" class="eoi-submit">إرسال</button></div>
+                <p class="eoi-footer-note">في حال وجود أي مشكلة أثناء التسجيل، يرجى التواصل على <a href="mailto:info@alruwais.com.sa">info@alruwais.com.sa</a></p>
+                <div class="eoi-submit-wrap"><button type="submit" class="eoi-submit" id="eoi-submit-btn">إرسال</button></div>
+                <p class="eoi-success-notice" id="eoi-success-notice" role="status">تم إرسال طلبكم بنجاح. سنتواصل معكم قريباً.</p>
             </form>
         </div>
         <p class="eoi-copyright">حقوق النشر © 2026، نسما وشركاهم. جميع الحقوق محفوظة.</p>
@@ -722,11 +721,6 @@
                                                                             <li class="_eleY">
                                             <a href="our-business.html#operations">
                                                 إدارة المرافق 
-                                            </a>
-                                        </li>
-                                                                            <li class="_eleY">
-                                            <a href="our-business.html#resources">
-                                                مشاريع تهيئة بيئة العمل
                                             </a>
                                         </li>
                                                                             <li class="_eleY">

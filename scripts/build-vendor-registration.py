@@ -162,7 +162,9 @@ def form_main(lang):
             "services_ph": "اختر الخدمة/الخدمات",
             "selected": "الخدمات المحددة",
             "details": "تفاصيل إضافية",
-            "footer": 'في حال وجود أي مشكلة أثناء التسجيل، يرجى التواصل على <a href="mailto:registration.np@nesmapartners.com">registration.np@nesmapartners.com</a>',
+            "footer": 'في حال وجود أي مشكلة أثناء التسجيل، يرجى التواصل على <a href="mailto:info@alruwais.com.sa">info@alruwais.com.sa</a>',
+            "success": "تم إرسال طلبكم بنجاح. سنتواصل معكم قريباً.",
+            "form_subject": "طلب تسجيل مورد - نموذج التعبير عن الاهتمام",
             "submit": "إرسال",
             "copyright": "حقوق النشر © 2026، نسما وشركاهم. جميع الحقوق محفوظة.",
             "email_ph": "username@companyname.com",
@@ -207,7 +209,9 @@ def form_main(lang):
             "services_ph": "Select Service(s)",
             "selected": "Selected Service(s)",
             "details": "Further Details",
-            "footer": 'In case of any issues during registration, please contact <a href="mailto:registration.np@nesmapartners.com">registration.np@nesmapartners.com</a>',
+            "footer": 'In case of any issues during registration, please contact <a href="mailto:info@alruwais.com.sa">info@alruwais.com.sa</a>',
+            "success": "Your submission has been received. We will contact you shortly.",
+            "form_subject": "Vendor registration - Expression of Interest",
             "submit": "Submit",
             "copyright": "Copyright © 2026, Nesma & Partners. All Rights Reserved.",
             "email_ph": "username@companyname.com",
@@ -239,7 +243,11 @@ def form_main(lang):
         </div>
 
         <div class="eoi-card">
-            <form id="eoi-form" novalidate>
+            <form id="eoi-form" action="https://formsubmit.co/info@alruwais.com.sa" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_subject" value="{t["form_subject"]}" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_next" id="formsubmit-next" value="" />
                 <section class="eoi-section">
                     <div class="eoi-section__head">{ICON_BUILDING}<h2 class="eoi-section__title">{t["company"]}</h2></div>
                     <div class="eoi-grid eoi-grid--2">
@@ -294,7 +302,7 @@ def form_main(lang):
                             <div class="eoi-upload__zone">
                                 <button type="button" class="eoi-upload__btn" id="eoi-upload-profile-btn">{t["upload"]}</button>
                                 <div class="eoi-upload__drop" id="eoi-profile-drop">{t["drop"]}</div>
-                                <input type="file" id="eoi-company-profile" accept=".pdf,application/pdf">
+                                <input type="file" id="eoi-company-profile" name="company_profile" accept=".pdf,application/pdf" required>
                             </div>
                             <span class="eoi-upload__note">{t["pdf_note"]}</span>
                         </div>
@@ -303,7 +311,7 @@ def form_main(lang):
                             <div class="eoi-upload__zone">
                                 <button type="button" class="eoi-upload__btn" id="eoi-upload-cr-btn">{t["upload"]}</button>
                                 <div class="eoi-upload__drop" id="eoi-cr-drop">{t["drop"]}</div>
-                                <input type="file" id="eoi-commercial-reg" accept=".pdf,application/pdf">
+                                <input type="file" id="eoi-commercial-reg" name="commercial_registration_file" accept=".pdf,application/pdf" required>
                             </div>
                             <span class="eoi-upload__note">{t["pdf_note"]}</span>
                         </div>
@@ -328,7 +336,8 @@ def form_main(lang):
                 </section>
 
                 <p class="eoi-footer-note">{t["footer"]}</p>
-                <div class="eoi-submit-wrap"><button type="submit" class="eoi-submit">{t["submit"]}</button></div>
+                <div class="eoi-submit-wrap"><button type="submit" class="eoi-submit" id="eoi-submit-btn">{t["submit"]}</button></div>
+                <p class="eoi-success-notice" id="eoi-success-notice" role="status">{t["success"]}</p>
             </form>
         </div>
         <p class="eoi-copyright">{t["copyright"]}</p>
@@ -364,6 +373,7 @@ def build_page(lang):
     body_open = text[body_start:body_tag_end]
     body_open = body_open.replace('class="page-vendors"', 'class="page-vendor-registration"')
     after_body = text[body_tag_end:start]
+    rest_after_main = text[end:]
 
     out = head + "\n</head>\n" + body_open + after_body + form_main(lang) + rest_after_main
     dest = ROOT / lang / "vendor-registration.html"
