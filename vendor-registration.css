@@ -20,38 +20,57 @@
     align-items: center;
     justify-content: space-between;
     gap: 1.5em;
-    background: #003d53;
+    direction: ltr;
+    background: linear-gradient(135deg, #002a3a 0%, #003d53 55%, #004a63 100%);
     color: #fff;
     border-radius: 0.75em;
-    padding: 1.1em 1.75em;
+    padding: 1.35em 2em;
     margin-bottom: 1.25em;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 61, 83, 0.12);
 }
 
-.eoi-banner__tagline {
-    font-size: 0.95em;
-    line-height: 1.35;
-    white-space: nowrap;
+.eoi-banner__logo-wrap {
+    flex: 0 0 auto;
 }
 
-.eoi-banner__tagline em {
-    color: #d5d7d7;
-    font-style: normal;
-    font-weight: 600;
+.eoi-banner__logo {
+    display: block;
+    height: 3.75em;
+    width: auto;
+    max-width: 10em;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
 }
 
 .eoi-banner__title {
     flex: 1;
-    text-align: center;
-    font-size: 1.35em;
-    font-weight: 700;
     margin: 0;
+    padding: 0 1em;
+    font-size: clamp(1.6em, 3vw, 2.1em);
+    font-weight: 800;
+    line-height: 1.15;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    text-align: center;
+    direction: rtl;
 }
 
-.eoi-banner__logo {
-    height: 3.2em;
-    width: auto;
-    max-width: 11em;
-    object-fit: contain;
+.eoi-banner__tagline {
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 0.35em 1em;
+    border-radius: 999px;
+    background: rgba(242, 126, 32, 0.14);
+    border: 1px solid rgba(242, 126, 32, 0.5);
+    color: #F27E20;
+    font-size: 0.92em;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    direction: rtl;
 }
 
 /* Toolbar */
@@ -450,8 +469,14 @@ html[dir="rtl"] .eoi-counter {
 @media (max-width: 640px) {
     .eoi-banner {
         flex-direction: column;
+        align-items: center;
         text-align: center;
-        padding: 1.25em 1em;
+        padding: 1.35em 1.25em;
+        gap: 0.85em;
+    }
+
+    .eoi-banner__title {
+        padding: 0;
     }
 
     .eoi-banner__tagline {

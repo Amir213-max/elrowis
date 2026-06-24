@@ -128,8 +128,8 @@ def services_checkboxes(lang):
 def form_main(lang):
     if lang == "ar":
         t = {
-            "banner_tagline": '<em>معاً نبني التميز</em><br>Together, We Build Excellence',
-            "banner_title": "نموذج التعبير عن الاهتمام",
+            "banner_tagline": "قيمة راسخة",
+            "banner_title": "الرويس",
             "lang_en": "ENGLISH",
             "lang_ar": "العربية",
             "login": "تسجيل الدخول إلى V360",
@@ -226,9 +226,11 @@ def form_main(lang):
     return f'''<main>
     <div class="eoi-page">
         <div class="eoi-banner">
-            <div class="eoi-banner__tagline">{t["banner_tagline"]}</div>
+            <div class="eoi-banner__logo-wrap">
+                <img class="eoi-banner__logo" src="../images/alruwais-logo-transparent.png" alt="{t['banner_title']}">
+            </div>
             <h1 class="eoi-banner__title">{t["banner_title"]}</h1>
-            <img class="eoi-banner__logo" src="../images/alruwais-logo-transparent.png" alt="Nesma &amp; Partners">
+            <p class="eoi-banner__tagline">{t["banner_tagline"]}</p>
         </div>
 
         <div class="eoi-toolbar">
