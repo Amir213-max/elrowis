@@ -1,0 +1,153 @@
+{
+  "matched_count": 14,
+  "missing_count": 1,
+  "unused_folder_count": 0,
+  "matched": [
+    {
+      "card_id": "card1",
+      "title": "تطوير مرافق وخدمات الاستاد الرياضي بالمدينة الرياضية بالمجمعة",
+      "folder": "تطوير مرافق وخدمات الاستاد الرياضي بالمدينة الرياضية بالمجمعة",
+      "images": [
+        "../images/projects/card1/01.jpg"
+      ],
+      "count": 1
+    },
+    {
+      "card_id": "card2",
+      "title": "عقد مناولة وتشغيل منفذ الرقعي",
+      "folder": "عقد مناولة وتشغيل منفذ الرقعي",
+      "images": [
+        "../images/projects/card2/01.jpg"
+      ],
+      "count": 1
+    },
+    {
+      "card_id": "card3",
+      "title": "ترميم مبنى الركاب والجوازات بمنفذ الرقعي",
+      "folder": "ترميم مبنى الركاب والجوازات بمنفذ الرقعي",
+      "images": [
+        "../images/projects/card3/01.jpg",
+        "../images/projects/card3/02.jpg",
+        "../images/projects/card3/03.jpg",
+        "../images/projects/card3/04.jpg"
+      ],
+      "count": 4
+    },
+    {
+      "card_id": "card4",
+      "title": "عقد مناولة وتشغيل منفذ سلوى",
+      "folder": "عقد مناولة وتشغيل منفذ سلوى",
+      "images": [
+        "../images/projects/card4/01.jpg",
+        "../images/projects/card4/02.jpg",
+        "../images/projects/card4/03.jpg"
+      ],
+      "count": 3
+    },
+    {
+      "card_id": "card5",
+      "title": "ترميم وتأهيل مباني متفرقة في الهيئة العامة للتطوير الدفاعي",
+      "folder": "ترميم وتأهيل مباني متفرقة في الهيئة العامة للتطوير الدفاعي",
+      "images": [
+        "../images/projects/card5/01.jpg"
+      ],
+      "count": 1
+    },
+    {
+      "card_id": "card6",
+      "title": "عقد مناولة وتشغيل منفذ عرعر",
+      "folder": "عقد مناولة وتشغيل منفذ عرعر",
+      "images": [
+        "../images/projects/card6/01.jpg",
+        "../images/projects/card6/02.jpg",
+        "../images/projects/card6/03.jpg",
+        "../images/projects/card6/04.jpg"
+      ],
+      "count": 4
+    },
+    {
+      "card_id": "card7",
+      "title": "توريد وتركيب متطلبات تهيئة بيئة العمل في مواقع وزارة المالية",
+      "folder": "توريد وتركيب متطلبات تهيئة بيئة العمل في مواقع وزارة المالية",
+      "images": [
+        "../images/projects/card7/01.jpg"
+      ],
+      "count": 1
+    },
+    {
+      "card_id": "card9",
+      "title": "ترميم مواقع متفرقة برئاسة الحرس الملكي بالمنطقة الوسطى",
+      "folder": "ترميم مواقع متفرقة برئاسة الحرس الملكي بالمنطقة الوسطى",
+      "images": [
+        "../images/projects/card9/01.png"
+      ],
+      "count": 1
+    },
+    {
+      "card_id": "card10",
+      "title": "عقد مناولة وتشغيل منفذ البطحاء",
+      "folder": "عقد مناولة وتشغيل منفذ البطحاء",
+      "images": [
+        "../images/projects/card10/01.jpg"
+      ],
+      "count": 1
+    },
+    {
+      "card_id": "card11",
+      "title": "أعمال تأسيس وتشطيب بمشروع عمارة أرم (90 شقة)",
+      "folder": "أعمال تأسيس وتشطيب بمشروع عمارة أرم (90 شقة)",
+      "images": [
+        "../images/projects/card11/01.png",
+        "../images/projects/card11/02.png",
+        "../images/projects/card11/03.png",
+        "../images/projects/card11/04.png"
+      ],
+      "count": 4
+    },
+    {
+      "card_id": "card12",
+      "title": "عقد مناولة وتشغيل منفذ الخفجي",
+      "folder": "عقد مناوله وتشغيل منفذ الخفجي",
+      "images": [
+        "../images/projects/card12/01.jpg",
+        "../images/projects/card12/02.jpg",
+        "../images/projects/card12/03.jpg"
+      ],
+      "count": 3
+    },
+    {
+      "card_id": "card13",
+      "title": "مشروع تأهيل وتطوير مبنى مستشفى الأطفال القديم بمدينة الملك سعود الطبية",
+      "folder": "مشروع تأهيل وتطوير مبنى مستشفى الأطفال القديم بمدينة الملك سعود الطبية",
+      "images": [
+        "../images/projects/card13/01.png"
+      ],
+      "count": 1
+    },
+    {
+      "card_id": "card14",
+      "title": "تأهيل وحدة القيادة والتحكم بالمركز الرئيسي لهيئة الهلال الأحمر السعودي",
+      "folder": "تأهيل وحدة القيادة والتحكم بالمركز الرئيسي لهيئة الهلال الأحمر السعودي",
+      "images": [
+        "../images/projects/card14/01.jpg"
+      ],
+      "count": 1
+    },
+    {
+      "card_id": "card15",
+      "title": "تشغيل ونظافة دورات مياه لحدائق ومنتزهات متفرقة بمدينة الرياض",
+      "folder": "تشغيل ونظافة دورات مياه لحدائق ومنتزهات متفرقة بمدينة الرياض",
+      "images": [
+        "../images/projects/card15/01.jpg"
+      ],
+      "count": 1
+    }
+  ],
+  "missing_images": [
+    {
+      "card_id": "card8",
+      "title": "عقد مناولة منفذ جسر الملك فهد"
+    }
+  ],
+  "unused_folders": []
+}

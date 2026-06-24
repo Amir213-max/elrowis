@@ -1404,6 +1404,37 @@ body:not(.progress) .contact_button svg {
     color: #003d53 !important;
 }
 
+.page-vendors .vendor_contact_body {
+    width: 100%;
+}
+
+.page-vendors .vendor_contact_card {
+    gap: 1.25em;
+    padding: 2.5em 2em;
+    background: #fff;
+    border: 1px solid rgba(0, 61, 83, 0.12);
+    text-align: center;
+    max-width: 42em;
+    margin: 0 auto;
+}
+
+.page-vendors .vendor_contact_icon {
+    width: 4.5em;
+    height: 4.5em;
+    border-radius: 50%;
+    background: rgba(0, 61, 83, 0.08);
+}
+
+.page-vendors .vendor_contact_button {
+    color: #003d53 !important;
+    border-color: #003d53 !important;
+}
+
+.page-vendors .vendor_contact_button:hover {
+    background: #003d53 !important;
+    color: #fff !important;
+}
+
 /* Sustainability page */
 .page-sustainability #sustainability-report .grid_col:before {
     background: rgba(0, 61, 83, 0.68) !important;

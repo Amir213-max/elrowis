@@ -1,0 +1,222 @@
+/* Contact us – layout aligned with site design system */
+
+.page-contact-us main {
+    padding-top: 0;
+}
+
+.page-contact-us #contact-info .section_head {
+    margin-bottom: 0.5em;
+}
+
+.page-contact-us .contact_info_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5em;
+    width: 100%;
+    padding-top: 1em;
+}
+
+.page-contact-us .contact_info_col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85em;
+    padding-inline-start: 0;
+    border-inline-start: 1px solid rgba(0, 61, 83, 0.12);
+    padding-inline: 2em;
+}
+
+.page-contact-us .contact_info_col:first-child {
+    padding-inline-start: 0;
+    border-inline-start: none;
+}
+
+.page-contact-us .contact_info_icon {
+    width: 2.75em;
+    height: 2.75em;
+    border-radius: 50%;
+    background: rgba(0, 61, 83, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.page-contact-us .contact_info_col h4 {
+    color: #003d53;
+    font-weight: 700;
+    margin: 0;
+    font-size: 1.05em;
+}
+
+.page-contact-us .contact_info_col p {
+    margin: 0;
+    line-height: 1.75;
+}
+
+.page-contact-us .contact_info_col a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.page-contact-us .contact_info_col a:hover {
+    color: #003d53;
+    text-decoration: underline;
+}
+
+.page-contact-us .contact_phone_list {
+    gap: 0.45em;
+    align-items: flex-start;
+}
+
+.page-contact-us .contact_phone_link {
+    display: block;
+    color: rgba(0, 61, 83, 0.75);
+    font-size: 1em;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    unicode-bidi: plaintext;
+}
+
+.page-contact-us .contact_phone_link:hover {
+    color: #003d53;
+    text-decoration: underline;
+}
+
+.page-contact-us .contact_info_divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(0, 61, 83, 0.12);
+    margin: 2.5em 0 2em;
+}
+
+.page-contact-us .contact_social_wrap {
+    gap: 1em;
+}
+
+.page-contact-us .contact_social_wrap h4 {
+    color: #003d53;
+    font-weight: 700;
+    margin: 0;
+}
+
+.page-contact-us .contact_info_social {
+    gap: 1em;
+}
+
+.page-contact-us .contact_location_section {
+    padding-top: 0;
+    background: #fff;
+}
+
+.page-contact-us .contact_location_section .x2_padding {
+    padding-top: 0;
+}
+
+/* Vendor portal hero – site hero_wrap + background image */
+.page-contact-us .contact_vendor_hero {
+    min-height: 36em;
+    text-align: center;
+}
+
+.page-contact-us .contact_vendor_hero .hero_content_set {
+    align-items: center;
+    max-width: 52em;
+    margin: 0 auto;
+    padding-bottom: 2em;
+}
+
+.page-contact-us .contact_vendor_hero .hero_content {
+    text-align: center;
+    align-items: center;
+}
+
+.page-contact-us .contact_vendor_hero .hero_content p {
+    max-width: 42em;
+    line-height: 1.75;
+}
+
+.page-contact-us .contact_vendor_hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 61, 83, 0.55) 0%,
+        rgba(0, 61, 83, 0.72) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+.page-contact-us .contact_vendor_hero > .load_bg {
+    z-index: 1;
+}
+
+.page-contact-us .contact_vendor_hero .hero_content_set {
+    z-index: 99;
+}
+
+.page-contact-us .contact_form_notice {
+    display: none;
+    padding: 1em 1.25em;
+    border-radius: 0.75em;
+    background: rgba(0, 61, 83, 0.08);
+    color: #003d53;
+    font-weight: 600;
+    margin-bottom: 1.5em;
+}
+
+.page-contact-us .contact_form_notice.is-visible {
+    display: block;
+}
+
+.page-contact-us #vendor-form .form_side {
+    width: 100%;
+    max-width: 47.5em;
+    margin: 0 auto;
+}
+
+.page-contact-us #vendor-form .customForm button.site_button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.page-contact-us .customForm .input_block:not(.static) input,
+.page-contact-us .customForm .input_block:not(.static) textarea {
+    background: #f7f7f7;
+}
+
+@media (max-width: 900px) {
+    .page-contact-us .contact_info_grid {
+        grid-template-columns: 1fr;
+        gap: 2em;
+    }
+
+    .page-contact-us .contact_info_col {
+        border-inline-start: none;
+        padding-inline: 0;
+        padding-bottom: 2em;
+        border-bottom: 1px solid rgba(0, 61, 83, 0.12);
+    }
+
+    .page-contact-us .contact_info_col:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .page-contact-us .contact_vendor_hero {
+        min-height: 28em;
+    }
+}
+
+@media (max-width: 600px) {
+    .page-contact-us .contact_vendor_hero {
+        min-height: 24em;
+    }
+
+    .page-contact-us .contact_vendor_hero .hero_content h2 {
+        font-size: 1.6em;
+    }
+}

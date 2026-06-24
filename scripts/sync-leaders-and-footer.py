@@ -13,7 +13,7 @@ HOME_HTML = ROOT / "ar.html"
 LEADERS = [
     (
         "team-1",
-        "leader-01.jpeg",
+        "leader-01.jpg",
         "الصورة 1",
         "نايف العتيبي",
         "رئيس مجلس الإدارة",
@@ -37,7 +37,7 @@ LEADERS = [
         "leader-04.jpg",
         "الرابع",
         "م. جمال حمودة",
-        "مدير عام الموارد البشرية",
+        "مدير المكتب الفني",
     ),
     (
         "team-5",
@@ -56,7 +56,7 @@ LEADERS = [
 ]
 
 SRC_MAP = {
-    "leader-01.jpeg": "الصورة 1",
+    "leader-01.jpg": "الصورة 1",
     "leader-02.jpg": "الصورة 2",
     "leader-03.jpg": "الثالث",
     "leader-04.jpg": "الرابع",

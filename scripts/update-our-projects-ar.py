@@ -25,6 +25,7 @@ MARKERS = [
     (2, -5),
     (-6, 2),
     (1, -2),
+    (-4, 1),
 ]
 
 RAW_PROJECTS = [
@@ -187,10 +188,22 @@ RAW_PROJECTS = [
             "ويعزز جودة الخدمات اللوجستية وفق أعلى معايير الجودة والسلامة."
         ),
     },
+    {
+        "title": "عقد مناولة وتشغيل منفذ الخفجي",
+        "type": "تشغيل",
+        "city": "الخفجي",
+        "client": "هيئة الزكاة والضريبة والجمارك",
+        "content": (
+            "مشروع يهدف إلى تعزيز كفاءة التشغيل ورفع مستوى الجاهزية التشغيلية للمنفذ "
+            "من خلال تنفيذ أعمال الصيانة والتطوير الشاملة للمرافق والبنية التحتية، "
+            "وفق أفضل الممارسات الهندسية ومعايير الجودة والسلامة، بما يدعم استمرارية "
+            "الخدمات وتحقيق أعلى مستويات الأداء."
+        ),
+    },
 ]
 
-# Interleave last 5 operation/port projects among the first 9.
-ORDER = [1, 10, 2, 11, 3, 12, 4, 13, 5, 14, 6, 7, 8, 9]
+# Interleave operation/port projects among construction projects.
+ORDER = [1, 10, 2, 11, 3, 12, 4, 13, 5, 14, 6, 15, 7, 8, 9]
 PROJECTS = [RAW_PROJECTS[i - 1] for i in ORDER]
 
 CLOSE_BTN = """        <div class="rounded_button orange_bg f a-c j-c close pointer magnet" data-dist="1">

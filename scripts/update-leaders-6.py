@@ -10,14 +10,14 @@ OUT_DIR = ROOT / "images" / "about"
 ABOUT_HTML = ROOT / "ar" / "about-us.html"
 
 LEADERS = [
-    ("team-1", "leader-01.jpeg", lambda n: "الصورة 1" in n and "نايف" in n,
+    ("team-1", "leader-01.jpg", lambda n: "الصورة 1" in n and "نايف" in n,
      "نايف العتيبي", "رئيس مجلس الإدارة"),
     ("team-2", "leader-02.jpg", lambda n: "الصورة 2" in n and "وائل" in n,
      "د. وائل غنام", "الرئيس التنفيذي"),
     ("team-3", "leader-03.jpg", lambda n: "الثالث" in n or "حلمي" in n,
      "م. أحمد حلمي", "مدير إدارة المشاريع"),
     ("team-4", "leader-04.jpg", lambda n: "الرابع" in n or "جمال" in n,
-     "م. جمال حمودة", "مدير عام الموارد البشرية"),
+     "م. جمال حمودة", "مدير المكتب الفني"),
     ("team-5", "leader-abdulmajid.jpg", lambda n: "عبدالمجيد" in n,
      "عبدالمجيد البدراني", "مدير إدارة الموارد البشرية"),
     ("team-6", "leader-06.jpg", lambda n: "الصورة 6" in n and "مصطفى" in n,
