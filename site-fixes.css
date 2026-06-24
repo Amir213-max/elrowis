@@ -1435,6 +1435,49 @@ body:not(.progress) .contact_button svg {
     color: #fff !important;
 }
 
+/* Vendors portal hero – navy gradient overlay for readable text */
+.page-vendors .contact_vendor_hero {
+    text-align: center;
+}
+
+.page-vendors .contact_vendor_hero .hero_content_set {
+    align-items: center;
+    max-width: 52em;
+    margin: 0 auto;
+    padding-bottom: 2em;
+}
+
+.page-vendors .contact_vendor_hero .hero_content {
+    text-align: center;
+    align-items: center;
+}
+
+.page-vendors .contact_vendor_hero .hero_content p {
+    max-width: 42em;
+    line-height: 1.75;
+}
+
+.page-vendors .contact_vendor_hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 61, 83, 0.55) 0%,
+        rgba(0, 61, 83, 0.78) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+.page-vendors .contact_vendor_hero > .load_bg {
+    z-index: 1;
+}
+
+.page-vendors .contact_vendor_hero .hero_content_set {
+    z-index: 99;
+}
+
 /* Sustainability page */
 .page-sustainability #sustainability-report .grid_col:before {
     background: rgba(0, 61, 83, 0.68) !important;
