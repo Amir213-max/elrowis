@@ -11,7 +11,7 @@ ABOUT_HTML = ROOT / "ar" / "about-us.html"
 
 LEADERS = [
     ("team-1", "leader-01.jpg", lambda n: "الصورة 1" in n and "نايف" in n,
-     "نايف العتيبي", "رئيس مجلس الإدارة"),
+     "نايف الرويس", "رئيس مجلس الإدارة"),
     ("team-2", "leader-02.jpg", lambda n: "الصورة 2" in n and "وائل" in n,
      "د. وائل غنام", "الرئيس التنفيذي"),
     ("team-3", "leader-03.jpg", lambda n: "الثالث" in n or "حلمي" in n,
