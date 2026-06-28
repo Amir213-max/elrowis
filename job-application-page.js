@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    var form = document.getElementById('job-application-form');
+    var form = document.getElementById('job-application-form-el');
     var nextInput = document.getElementById('job-formsubmit-next');
     var successBanner = document.getElementById('job-form-success');
 

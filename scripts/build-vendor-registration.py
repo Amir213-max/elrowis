@@ -238,10 +238,6 @@ def form_main(lang):
                 <a href="{other_lang if lang == 'ar' else self_lang}" class="{"is-active" if lang == "en" else ""}">{t["lang_en"]}</a>
                 <a href="{self_lang if lang == "ar" else other_lang}" class="{"is-active" if lang == "ar" else ""}">{t["lang_ar"]}</a>
             </div>
-            <div class="eoi-actions">
-                <a href="https://my.apps.nesma-partners.com/suite/sites/np-360" class="eoi-login-btn" target="_blank" rel="noopener">{t["login"]}</a>
-                <a href="https://my.appianportals.com/expressionofinterest" class="eoi-guide-link" target="_blank" rel="noopener">{ICON_PDF} {t["guide"]}</a>
-            </div>
         </div>
 
         <div class="eoi-card">

@@ -4,7 +4,7 @@
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-EMAIL = "info@alruwais.com.sa"
+EMAIL = "jobs@alruwais.com.sa"
 
 
 def form_main(lang: str) -> str:
@@ -42,8 +42,7 @@ def form_main(lang: str) -> str:
                     </div>
 
                     <form
-                        id="job-application-form"
-                        class="customForm"
+                        id="job-application-form-el"
                         action="https://formsubmit.co/{EMAIL}"
                         method="POST"
                         enctype="multipart/form-data"
@@ -68,15 +67,6 @@ def form_main(lang: str) -> str:
                             </div>
                             <div class="input_block">
                                 <input type="text" name="المسمى الوظيفي" placeholder="المسمى الوظيفي المطلوب" required />
-                            </div>
-                            <div class="input_block">
-                                <input type="text" name="سنوات الخبرة" placeholder="سنوات الخبرة" required />
-                            </div>
-                            <div class="input_block">
-                                <input type="text" name="المؤهل العلمي" placeholder="المؤهل العلمي" required />
-                            </div>
-                            <div class="input_block">
-                                <textarea name="رسالة تعريفية" placeholder="رسالة تعريفية (اختياري)" rows="4"></textarea>
                             </div>
                             <div class="input_block">
                                 <label for="job-cv">السيرة الذاتية (PDF)</label>
@@ -132,8 +122,7 @@ def form_main(lang: str) -> str:
                     </div>
 
                     <form
-                        id="job-application-form"
-                        class="customForm"
+                        id="job-application-form-el"
                         action="https://formsubmit.co/{EMAIL}"
                         method="POST"
                         enctype="multipart/form-data"
@@ -158,15 +147,6 @@ def form_main(lang: str) -> str:
                             </div>
                             <div class="input_block">
                                 <input type="text" name="Job title" placeholder="Desired job title" required />
-                            </div>
-                            <div class="input_block">
-                                <input type="text" name="Years of experience" placeholder="Years of experience" required />
-                            </div>
-                            <div class="input_block">
-                                <input type="text" name="Education" placeholder="Education level" required />
-                            </div>
-                            <div class="input_block">
-                                <textarea name="Cover letter" placeholder="Cover letter (optional)" rows="4"></textarea>
                             </div>
                             <div class="input_block">
                                 <label for="job-cv">CV (PDF)</label>

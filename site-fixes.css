@@ -1492,6 +1492,11 @@ body:not(.progress) .contact_button svg {
     border-color: rgba(255, 255, 255, 0.75) !important;
 }
 
+.page-sustainability .hero_wrap.sus_wrap.dark_green_bg .sus_axes_list li {
+    color: #b6553e !important;
+    font-weight: 500;
+}
+
 .page-sustainability .sus_col.active {
     background: rgba(255, 255, 255, 0.95) !important;
     color: #003d53 !important;
