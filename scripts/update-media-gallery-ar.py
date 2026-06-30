@@ -39,7 +39,8 @@ def copy_gallery_images(source: Path) -> list[str]:
         dest_name = f"gallery-{i:02d}{ext}"
         dest = GALLERY_DEST / dest_name
         shutil.copy2(src, dest)
-        rel_paths.append(f"../images/media-gallery/{dest_name}")
+        version = int(dest.stat().st_mtime)
+        rel_paths.append(f"../images/media-gallery/{dest_name}?v={version}")
     return rel_paths
 
 
