@@ -891,6 +891,15 @@ html[dir="rtl"] .contact_map_wrap {
     left: 0;
     width: 100% !important;
     height: 100% !important;
+    transform: scale(0.82);
+}
+
+html[dir="rtl"] #projects #container canvas {
+    transform-origin: 85% 48%;
+}
+
+html[dir="ltr"] #projects #container canvas {
+    transform-origin: 15% 48%;
 }
 
 @media (min-width: 1201px) {

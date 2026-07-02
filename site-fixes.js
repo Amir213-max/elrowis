@@ -852,22 +852,22 @@
                 var isContact = form.closest('.form_side') || form.id === 'contact-us-form';
 
                 if (isNewsletter && email) {
-                    window.location.href = 'mailto:info@nesmapartners.com?subject=Newsletter%20Subscription&body=Please%20subscribe%20me%20to%20the%20newsletter:%20' + encodeURIComponent(email);
+                    window.location.href = 'mailto:info@alruwais.com.sa?subject=Newsletter%20Subscription&body=Please%20subscribe%20me%20to%20the%20newsletter:%20' + encodeURIComponent(email);
                     return;
                 }
 
                 if (isContact) {
                     var name = (form.querySelector('[wire\\:model="name"]') || form.querySelector('input[name="name"]'));
                     var message = (form.querySelector('[wire\\:model="message"]') || form.querySelector('textarea'));
-                    var subject = 'Contact Form - Nesma Partners';
+                    var subject = 'Contact Form - Alruwais';
                     var body = 'Name: ' + (name ? name.value : '') + '\nEmail: ' + email + '\n\n' + (message ? message.value : '');
-                    window.location.href = 'mailto:info@nesmapartners.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                    window.location.href = 'mailto:info@alruwais.com.sa?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
                     return;
                 }
 
                 alert(document.documentElement.lang === 'ar'
-                    ? 'النموذج غير متصل بالخادم. يرجى التواصل عبر info@nesmapartners.com'
-                    : 'Form is offline. Please contact us at info@nesmapartners.com');
+                    ? 'النموذج غير متصل بالخادم. يرجى التواصل عبر info@alruwais.com.sa'
+                    : 'Form is offline. Please contact us at info@alruwais.com.sa');
             }, true);
         });
     }
