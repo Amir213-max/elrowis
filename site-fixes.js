@@ -898,6 +898,70 @@
         }
     }
 
+    function initHeroSlides() {
+        var hero = document.getElementById('homeHero');
+        if (!hero) return;
+
+        var video = hero.querySelector('.canvas_wrap video');
+        var slides = hero.querySelectorAll('.canvas_content');
+        if (!video || !slides.length) return;
+
+        var rafId = null;
+
+        function setActiveSlide(index) {
+            slides.forEach(function (slide, i) {
+                slide.classList.toggle('is-active', i === index);
+            });
+        }
+
+        function updateSlide() {
+            var duration = video.duration;
+            if (!duration || !isFinite(duration)) return;
+            var segment = duration / slides.length;
+            var activeIndex = Math.min(
+                slides.length - 1,
+                Math.floor((video.currentTime % duration) / segment)
+            );
+            setActiveSlide(activeIndex);
+        }
+
+        function tick() {
+            if (!video.paused) {
+                updateSlide();
+            }
+            rafId = window.requestAnimationFrame(tick);
+        }
+
+        function startSlides() {
+            if (rafId !== null) return;
+            setActiveSlide(0);
+            updateSlide();
+            rafId = window.requestAnimationFrame(tick);
+        }
+
+        function stopSlides() {
+            if (rafId !== null) {
+                window.cancelAnimationFrame(rafId);
+                rafId = null;
+            }
+        }
+
+        setActiveSlide(0);
+        video.addEventListener('loadedmetadata', updateSlide);
+        video.addEventListener('play', startSlides);
+        video.addEventListener('pause', stopSlides);
+        video.addEventListener('ended', function () {
+            setActiveSlide(0);
+        });
+
+        if (video.readyState >= 1) {
+            updateSlide();
+        }
+        if (!video.paused) {
+            startSlides();
+        }
+    }
+
     function fixOperationsSectorSlider() {
         var panel = document.querySelector('#operations .operations_sector_slider .tab_panel');
         if (!panel || !window.Flickity) return false;
@@ -939,6 +1003,7 @@
         addOfflineNotices();
         updateBrandMeta();
         initHomeHeroVideo();
+        initHeroSlides();
         watchMapSlider();
         reorderMapSection();
         if (isMapCarouselViewport()) {
@@ -964,6 +1029,7 @@
         replaceBrandLogos();
         updateBrandMeta();
         initHomeHeroVideo();
+        initHeroSlides();
         initGallerySlider();
         scheduleGalleryFixes();
         scheduleMapCarouselFixes();
