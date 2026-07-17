@@ -74831,7 +74831,6 @@ let body = document.querySelector('body'),
   isMobile,
   isTouch,
   smoother;
-window.addEventListener('load', onWindowLoad);
 window.addEventListener('resize', onWindowResize);
 
 // Devoloper Tools
@@ -74866,12 +74865,16 @@ function onWindowLoad() {
   body.classList.add('progress');
   const css = __webpack_require__(171)("./lang_" + pageLang + ".css");
   onWindowResize();
-  if (pageLang == 'en') {
-    loadFonts();
-  } else {
-    onFontsLoad();
-  }
   pagesLoader();
+  try {
+    if (pageLang == 'en') {
+      loadFonts();
+    } else {
+      onFontsLoad();
+    }
+  } catch (err) {
+    console.error(err);
+  }
 
   // devtools()
 }
@@ -74914,23 +74917,23 @@ function flickityFix($carousel) {
 function pagesLoader() {
   let loader = document.getElementById('loader'),
     tl = new gsapWithCSS.timeline({
-      delay: 0.5
+      delay: 0
     });
   tl.set('#smooth-wrapper', {
     autoAlpha: 1
-  }).to('#loader svg', 1, {
+  }).set('#loader svg', {
     autoAlpha: 1,
-    ease: 'power3.out'
-  }, 0).to('#loader svg', 0.5, {
+    scale: 1
+  }, 0).to('#loader svg', 0.35, {
     scale: 1.05,
     autoAlpha: 0,
     ease: 'power3.out'
-  }, 2).call(function () {
+  }, 0.55).call(function () {
     pageScroll();
-  }).to(loader, 0.5, {
+  }).to(loader, 0.35, {
     autoAlpha: 0,
     onStart: function () {
-      if (canvas && canvas.length != 0) {
+      if (canvas && canvas.play) {
         canvas.play();
       }
     },
@@ -75833,56 +75836,46 @@ function map() {
       pathTarget.classList.add('active');
     }
   }
-  if (projectsSet && projectsSet.length != 0) {
-    let flkty = new Flickity(projectsTarget, {
-      prevNextButtons: false,
-      accessibility: false,
-      pageDots: false,
-      draggable: true,
-      percentPosition: true,
-      cellAlign: 'center',
-      rightToLeft: pageLang == 'ar' ? true : false,
-      selectedAttraction: isTouch ? 0.2 : 0.01,
-      contain: true,
-      watchCSS: true,
-      friction: isTouch ? 0.8 : 0.2
-    });
-    flkty.on('change', function (index) {
-      let locationID = cards[index].dataset.location;
-      update(locationID);
-    });
-    flickityFix(flkty);
-    setTimeout(function () {
-      flkty.resize();
-      let locationID = cards[0].dataset.location;
-      update(locationID);
-    }, 1000);
-  }
   function build() {
     if (ScrollTrigger_ScrollTrigger.getById("map")) {
       ScrollTrigger_ScrollTrigger.getById("map").kill(true);
     }
-    if (window.innerWidth > 1200) {
+    if (window.innerWidth > 1200 && projectsTarget && projectsSet) {
+      gsapWithCSS.set(projectsTarget, {
+        y: 0
+      });
+      var viewHeight = projectsSet.clientHeight || projectsSet.offsetHeight;
+      var travel = Math.max(0, projectsTarget.scrollHeight - viewHeight);
+      var projectCount = projectsTarget.querySelectorAll('.map_project').length;
+      if (travel <= 0 && projectCount > 1) {
+        var projects = projectsTarget.querySelectorAll('.map_project');
+        travel = 0;
+        projects.forEach(function (project, index) {
+          if (index < projects.length - 1) {
+            travel += project.offsetHeight + (parseFloat(getComputedStyle(projectsTarget).gap) || 0);
+          }
+        });
+      }
+      var scrollDistance = travel > 0 ? travel * 1.05 : viewHeight;
       gsapWithCSS.timeline({
         scrollTrigger: {
           id: 'map',
           trigger: '#map',
-          start: '0% 0%',
-          end: () => `+=${projectsTarget.offsetHeight / 1.8}`,
+          start: 'top top',
+          end: '+=' + scrollDistance,
           pin: true,
           pinSpacing: true,
           onUpdate: scroll,
-          scrub: true
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+          anticipatePin: 1
         },
         defaults: {
           ease: 'none'
         }
-      }).fromTo(projectsTarget, {
-        y: 0
-      }, {
-        y: function () {
-          return -(projectsTarget.offsetHeight - projectsSet.offsetHeight);
-        }
+      }).to(projectsTarget, {
+        y: -travel,
+        ease: 'none'
       }, 0);
     }
   }
@@ -75894,9 +75887,45 @@ function map() {
       }
     });
   }
-  if (projectsSet && projectsSet.length != 0) {
+  if (projectsSet) {
+    if (window.innerWidth <= 1200) {
+      var flkty = new Flickity(projectsTarget, {
+        prevNextButtons: false,
+        accessibility: false,
+        pageDots: false,
+        draggable: true,
+        percentPosition: true,
+        cellAlign: 'center',
+        rightToLeft: pageLang == 'ar' ? true : false,
+        selectedAttraction: isTouch ? 0.2 : 0.01,
+        contain: true,
+        watchCSS: true,
+        friction: isTouch ? 0.8 : 0.2
+      });
+      flkty.on('change', function (index) {
+        let locationID = cards[index].dataset.location;
+        update(locationID);
+      });
+      flickityFix(flkty);
+      setTimeout(function () {
+        flkty.resize();
+        let locationID = cards[0].dataset.location;
+        update(locationID);
+      }, 1000);
+    }
     window.addEventListener('resize', build);
     build();
+    window.addEventListener('load', function () {
+      if (window.innerWidth > 1200) {
+        gsapWithCSS.set(projectsTarget, {
+          clearProps: 'transform'
+        });
+        setTimeout(build, 120);
+        setTimeout(build, 1500);
+      }
+    }, {
+      once: true
+    });
   }
 }
 function burger() {
@@ -76889,6 +76918,16 @@ class InteractiveLabelsClass {
     });
   }
 }
+function bootApp() {
+  if (document.readyState === 'complete') {
+    onWindowLoad();
+  } else {
+    document.addEventListener('DOMContentLoaded', onWindowLoad, {
+      once: true
+    });
+  }
+}
+bootApp();
 })();
 
 /******/ })()

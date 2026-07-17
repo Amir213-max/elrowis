@@ -488,9 +488,118 @@ label, nav, footer, header {
         height: calc(100vh - 6em);
         max-height: calc(100vh - 6em);
         justify-self: end;
-        align-self: stretch;
+        align-self: center;
         overflow: hidden;
         z-index: 199;
+        isolation: isolate;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    #map .map_projects._eleWrap,
+    #map .map_projects_set._eleWrap {
+        visibility: visible !important;
+    }
+
+    #map .map_projects ._eleY,
+    #map .map_projects .map_project,
+    #map .map_projects .map_card {
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    #map .map_projects {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        overflow: visible !important;
+        box-sizing: border-box;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.75em !important;
+        will-change: transform;
+    }
+
+    #map .map_projects .map_project {
+        flex: 0 0 auto !important;
+        height: auto !important;
+        min-height: 0 !important;
+        box-sizing: border-box;
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+    }
+
+    #map .map_projects .flickity-slider,
+    #map .map_projects .flickity-cell,
+    #map .map_project {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        margin: 0 !important;
+    }
+
+    #map .map_card {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        box-sizing: border-box;
+        padding: 2.5em !important;
+        gap: 2.5em !important;
+        flex-direction: column !important;
+        display: flex !important;
+        flex: 0 0 auto !important;
+        align-self: flex-start !important;
+        overflow: hidden;
+        background: #fff !important;
+    }
+
+    #map .map_card_cover {
+        width: 100% !important;
+        max-width: 100%;
+        flex: 0 0 auto !important;
+        height: 24em !important;
+        min-height: 24em !important;
+        max-height: 24em !important;
+        overflow: hidden;
+        border-radius: 0;
+        position: relative;
+    }
+
+    #map .map_card_cover i,
+    #map .map_card_cover .load_bg {
+        width: 100% !important;
+        height: 100% !important;
+        display: block;
+        background-size: cover !important;
+        background-position: center !important;
+        overflow: hidden;
+    }
+
+    #map .map_card_head {
+        width: 100%;
+        min-width: 0;
+        flex: 0 0 auto;
+    }
+
+    #map .map_card h3 {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        line-height: 1.35 !important;
+        font-size: 1.55em !important;
+        font-weight: 600 !important;
+        height: auto !important;
+    }
+
+    #map .map_card_info {
+        border-top: 1px solid rgba(22, 25, 23, 0.2);
+        border-bottom: 1px solid rgba(22, 25, 23, 0.2);
+        padding: 1.25em 0;
     }
 }
 
@@ -682,7 +791,7 @@ label, nav, footer, header {
         flex-direction: column-reverse !important;
         display: flex !important;
         background: #fff !important;
-        overflow: visible !important;
+        overflow: hidden !important;
         height: auto !important;
         min-height: 0 !important;
         touch-action: pan-x pinch-zoom;
@@ -703,12 +812,22 @@ label, nav, footer, header {
         height: 20em !important;
         min-height: 20em !important;
         width: 100% !important;
+        max-width: 100%;
+        overflow: hidden;
+        border-radius: 0.75em;
+    }
+
+    #map .map_card_cover i,
+    #map .map_card_cover .load_bg {
+        overflow: hidden;
+        border-radius: inherit;
     }
 
     #map .map_card h3 {
         height: auto !important;
         min-height: 0 !important;
-        overflow: visible !important;
+        overflow-wrap: anywhere;
+        word-break: break-word;
         line-height: 1.4 !important;
         font-size: 1.35em !important;
     }
@@ -747,6 +866,7 @@ label, nav, footer, header {
         gap: 1em !important;
         padding: 0 1.5em 1.5em !important;
         box-sizing: border-box;
+        max-width: 100%;
     }
 
     #map .map_projects .map_project,
@@ -757,6 +877,12 @@ label, nav, footer, header {
         max-width: calc(50% - 0.5em) !important;
         min-width: calc(50% - 0.5em) !important;
         scroll-snap-align: start;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    #map .map_card {
+        overflow: hidden !important;
     }
 
     #map .map_card_cover {
@@ -1219,6 +1345,23 @@ body:not(.progress) .contact_button svg {
     width: 19em !important;
     height: 6.5em !important;
     max-width: 92vw;
+}
+
+#loader.is-booting svg {
+    visibility: visible;
+    opacity: 1;
+}
+
+#loader.is-dismissed {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    display: none !important;
+}
+
+#loader {
+    background: #fff !important;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
 }
 
 @media (min-width: 601px) {

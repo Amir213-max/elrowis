@@ -68,9 +68,6 @@
             var src = resolveStorageUrl(el.getAttribute('data-src'));
             if (!src) return;
             el.setAttribute('data-src', src);
-            if (!el.getAttribute('src')) {
-                el.setAttribute('src', src);
-            }
         });
     }
 
@@ -314,8 +311,85 @@
     function revealMapProjects(slider) {
         if (!slider) return;
         slider.classList.add('inview');
-        forceVisible(slider);
-        slider.querySelectorAll('.map_project, .map_card, .map_card_cover, .map_card_head, ._eleY, .load_bg').forEach(forceVisible);
+        slider.style.setProperty('visibility', 'visible', 'important');
+        slider.style.setProperty('opacity', '1', 'important');
+        if (isMapCarouselViewport()) {
+            forceVisible(slider);
+            slider.querySelectorAll('.map_project, .map_card, .map_card_cover, .map_card_head, ._eleY, .load_bg').forEach(forceVisible);
+            return;
+        }
+        if (window.innerWidth > 1200) {
+            slider.querySelectorAll('._eleY, .map_project, .map_card, .map_card_cover, .map_card_head, .load_bg').forEach(function (el) {
+                el.style.setProperty('visibility', 'visible', 'important');
+                el.style.setProperty('opacity', '1', 'important');
+            });
+        }
+    }
+
+    function restoreDesktopMapLayout() {
+        if (window.innerWidth <= 1200) return;
+
+        var slider = document.querySelector('#map .map_projects');
+        var projectsSet = document.querySelector('#map .map_projects_set');
+        if (!slider) return;
+
+        destroyMapFlickity(slider);
+        restoreMapProjectsDom(slider);
+
+        slider.classList.remove('map-swipe-native', 'map-tablet-native', 'inview');
+        slider.removeAttribute('data-map-mode');
+        slider.removeAttribute('data-map-fixed');
+        slider.style.removeProperty('display');
+        slider.style.removeProperty('flex-wrap');
+        slider.style.removeProperty('overflow-x');
+        slider.style.removeProperty('overflow-y');
+        slider.style.removeProperty('transform');
+        slider.style.removeProperty('visibility');
+        slider.style.removeProperty('opacity');
+
+        slider.querySelectorAll('.map_project').forEach(function (project) {
+            project.removeAttribute('style');
+            project.classList.remove('is-active');
+        });
+
+        slider.querySelectorAll('.map_card, .map_card_cover, .map_card_head, ._eleY, .load_bg').forEach(function (el) {
+            el.style.removeProperty('transform');
+        });
+
+        if (projectsSet) {
+            projectsSet.style.removeProperty('transform');
+            projectsSet.style.removeProperty('visibility');
+            projectsSet.style.removeProperty('opacity');
+        }
+    }
+
+    function refreshDesktopMapScroll() {
+        if (window.innerWidth <= 1200) return;
+        window.dispatchEvent(new Event('resize'));
+        if (window.ScrollTrigger && typeof window.ScrollTrigger.refresh === 'function') {
+            window.ScrollTrigger.refresh();
+        }
+    }
+
+    function initDesktopMapScroll() {
+        if (window.innerWidth <= 1200) return;
+
+        var slider = document.querySelector('#map .map_projects');
+        var projectsSet = document.querySelector('#map .map_projects_set');
+
+        if (!window.__mapDesktopLayoutReady) {
+            restoreDesktopMapLayout();
+            patchBackgroundImages();
+            window.__mapDesktopLayoutReady = true;
+        }
+
+        if (slider) revealMapProjects(slider);
+        if (projectsSet) revealMapProjects(projectsSet);
+
+        refreshDesktopMapScroll();
+        setTimeout(refreshDesktopMapScroll, 500);
+        setTimeout(refreshDesktopMapScroll, 1500);
+        setTimeout(refreshDesktopMapScroll, 3500);
     }
 
     function destroyMapFlickity(slider) {
@@ -887,6 +961,68 @@
         });
     }
 
+    function initFastLoader() {
+        var loader = document.getElementById('loader');
+        if (!loader || loader.classList.contains('is-dismissed')) return;
+        loader.classList.add('is-booting');
+        var svg = loader.querySelector('svg');
+        if (svg) {
+            svg.style.visibility = 'visible';
+            svg.style.opacity = '1';
+        }
+    }
+
+    function dismissLoader() {
+        var loader = document.getElementById('loader');
+        if (!loader || loader.dataset.dismissed === '1') return;
+        loader.dataset.dismissed = '1';
+        loader.classList.remove('is-booting');
+        loader.classList.add('is-dismissed');
+
+        var critical = document.getElementById('critical-loader-css');
+        if (critical) critical.remove();
+
+        var wrapper = document.getElementById('smooth-wrapper');
+        if (wrapper) {
+            wrapper.style.visibility = 'visible';
+            wrapper.style.opacity = '1';
+        }
+
+        if (document.body) {
+            document.body.classList.remove('wait');
+            document.body.style.overflow = 'auto';
+        }
+
+        var heroVideoEl = document.querySelector('#homeHero .canvas_wrap video');
+        if (heroVideoEl) {
+            heroVideoEl.muted = true;
+            heroVideoEl.setAttribute('playsinline', '');
+            var playPromise = heroVideoEl.play();
+            if (playPromise && typeof playPromise.catch === 'function') {
+                playPromise.catch(function () {});
+            }
+        }
+    }
+
+    function scheduleLoaderDismiss() {
+        window.setTimeout(dismissLoader, 800);
+        window.setTimeout(dismissLoader, 2000);
+    }
+
+    function optimizeHeavyAssets() {
+        document.querySelectorAll('#homeHero .canvas_wrap video').forEach(function (video) {
+            if (video.getAttribute('preload') !== 'none') {
+                video.setAttribute('preload', 'metadata');
+            }
+        });
+
+        document.querySelectorAll('link[href*="video-js"], script[src*="video.min.js"]').forEach(function (node) {
+            if (node.parentNode) {
+                node.parentNode.removeChild(node);
+            }
+        });
+    }
+
     function initHomeHeroVideo() {
         var heroVideoEl = document.querySelector('#homeHero .canvas_wrap video');
         if (!heroVideoEl) return;
@@ -992,11 +1128,16 @@
     fixStoragePaths();
     loadLazyImages();
     ensureVisibility();
+    initFastLoader();
+    scheduleLoaderDismiss();
 
     document.addEventListener('DOMContentLoaded', function () {
         fixStoragePaths();
         loadLazyImages();
         ensureVisibility();
+        initFastLoader();
+        scheduleLoaderDismiss();
+        optimizeHeavyAssets();
         patchBackgroundImages();
         patchLeaderImages();
         setupFormFallbacks();
@@ -1004,6 +1145,7 @@
         updateBrandMeta();
         initHomeHeroVideo();
         initHeroSlides();
+        initDesktopMapScroll();
         watchMapSlider();
         reorderMapSection();
         if (isMapCarouselViewport()) {
@@ -1023,6 +1165,8 @@
         fixStoragePaths();
         loadLazyImages();
         ensureVisibility();
+        initFastLoader();
+        optimizeHeavyAssets();
         patchBackgroundImages();
         patchLeaderImages();
         fallbackBrokenImages();
@@ -1030,6 +1174,7 @@
         updateBrandMeta();
         initHomeHeroVideo();
         initHeroSlides();
+        initDesktopMapScroll();
         initGallerySlider();
         scheduleGalleryFixes();
         scheduleMapCarouselFixes();

@@ -6,6 +6,53 @@
     var brand = isAr ? 'الرويس' : 'Alruwais';
     var tagline = isAr ? 'معاً نبني التميز' : 'Together, We Build Excellence';
 
+    function injectCriticalLoaderStyles() {
+        if (document.getElementById('critical-loader-css')) return;
+        var style = document.createElement('style');
+        style.id = 'critical-loader-css';
+        style.textContent = '#loader{background:#fff!important}';
+        (document.head || docEl).appendChild(style);
+    }
+
+    function preloadBrandAssets(base) {
+        var logo = base + 'images/alruwais-logo-transparent.png';
+        if (!document.querySelector('link[data-preload-logo="1"]')) {
+            var link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'image';
+            link.href = logo;
+            link.setAttribute('data-preload-logo', '1');
+            (document.head || docEl).appendChild(link);
+        }
+        var icon = base + 'images/favicon-alruwais-32x32.png?v=1';
+        if (!document.querySelector('link[data-preload-icon="1"]')) {
+            var iconLink = document.createElement('link');
+            iconLink.rel = 'preload';
+            iconLink.as = 'image';
+            iconLink.href = icon;
+            iconLink.setAttribute('data-preload-icon', '1');
+            (document.head || docEl).appendChild(iconLink);
+        }
+    }
+
+    function scheduleDeferredUserway() {
+        function inject() {
+            if (document.querySelector('script[src*="userway.org"]')) return;
+            var s = document.createElement('script');
+            s.src = 'https://cdn.userway.org/widget.js';
+            s.async = true;
+            s.setAttribute('data-account', 'JpfuyjTa9e');
+            (document.body || docEl).appendChild(s);
+        }
+        if (document.readyState === 'complete') {
+            setTimeout(inject, 1200);
+        } else {
+            window.addEventListener('load', function () {
+                setTimeout(inject, 1200);
+            }, { once: true });
+        }
+    }
+
     function scriptBase() {
         var scripts = document.getElementsByTagName('script');
         for (var i = 0; i < scripts.length; i++) {
@@ -93,6 +140,10 @@
         }
     }
 
+    injectCriticalLoaderStyles();
+    var base = scriptBase();
+    preloadBrandAssets(base);
+    scheduleDeferredUserway();
     redirectRootToArabic();
     setFavicon();
     updateTitles();
